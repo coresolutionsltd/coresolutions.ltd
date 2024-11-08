@@ -1,0 +1,35 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import AnnouncementBanner from "@components/ui/banners/AnnouncementBanner.astro";
+import heroImage from "@images/hero.png";
+
+const displayAnnouncementBanner = true;
+---
+
+<MainLayout>
+  {displayAnnouncementBanner && (
+  <AnnouncementBanner
+    btnId="dismiss-button"
+    btnTitle="Explore Core Solutions on GitHub"
+    url="https://github.com/coresolutionsltd"
+  />
+  )}
+
+  <HeroSection
+    title=`Strengthen your business with <span
+        class="text-teal-500 dark:text-teal-400">Core Solutions</span>`
+    subTitle="We're a cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions."
+    src={heroImage}
+    alt="Stack of ScrewFast product boxes containing assorted hardware tools"
+
+  />
+
+  <HeroSectionAlt
+    title="Let's Build Together"
+    subTitle="We love open source, let’s build, innovate, and create together."
+    url="https://github.com/coresolutionsltd"
+  />
+</MainLayout>

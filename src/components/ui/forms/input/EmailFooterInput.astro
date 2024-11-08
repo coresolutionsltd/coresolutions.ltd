@@ -1,0 +1,35 @@
+---
+import AuthBtn from "@components/ui/buttons/AuthBtn.astro";
+const {
+  label = "Search",
+  title = "Subscribe",
+  id = "footer-input",
+} = Astro.props;
+
+interface Props {
+  label?: string;
+  title?: string;
+  id?: string;
+}
+
+const placeholder = "Enter your email";
+---
+
+<div
+  class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-neutral-200 p-2 dark:bg-neutral-800 sm:flex-row sm:gap-3"
+>
+  <div class="w-full">
+    <label for={id} class="sr-only">{label}</label>
+    <input
+      type="email"
+      id={id}
+      name="footer-input"
+      class="block w-full rounded-lg border-transparent bg-neutral-100 px-4 py-3 text-sm text-neutral-600 focus:border-blue-400 focus:ring-blue-400 disabled:pointer-events-none disabled:opacity-50 dark:border-transparent dark:bg-neutral-700 dark:text-gray-300 dark:placeholder:text-neutral-300"
+      placeholder={placeholder}
+      required={true}
+    />
+  </div>
+  <div class="w-56">
+    <AuthBtn title="Subscribe" />
+  </div>
+</div>
