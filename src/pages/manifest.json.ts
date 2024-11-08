@@ -1,7 +1,6 @@
 import type { APIRoute, ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import icon from "@images/icon.png";
-import maskableIcon from "@images/icon-maskable.png";
 
 interface Favicon {
   purpose: 'any' | 'maskable' | 'monochrome';
@@ -15,12 +14,7 @@ const favicons: Favicon[] = [
     purpose: 'any',
     src: icon,
     sizes,
-  },
-  {
-    purpose: 'maskable',
-    src: maskableIcon,
-    sizes,
-   },
+  }
 ];
 
 export const GET: APIRoute = async () => {
