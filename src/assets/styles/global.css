@@ -1,14 +1,13 @@
 blockquote {
   @apply border-l-4 border-gray-400 pl-4 italic text-neutral-500;
-
 }
 
 code:not(pre code) {
-  @apply bg-gray-200 bg-neutral-600 text-neutral-100 font-mono px-1.5 py-0.5 rounded-md text-sm;
+  @apply font-mono px-1.5 py-0.5 rounded-md text-sm bg-gray-200 bg-neutral-600 text-neutral-100;
 }
 
 .dark code:not(pre code) {
-  @apply bg-gray-300 text-neutral-800 font-mono px-1.5 py-0.5 rounded-md text-sm;
+  @apply bg-gray-300 text-neutral-800;
 }
 
 ul:not(footer ul) {
@@ -19,13 +18,13 @@ ol {
   @apply list-decimal pl-5 mt-5;
 }
 
-/* Light mode styles for code blocks */
-.astro-code.github-dark {
-  @apply bg-red-100 mt-5 p-4 pl-4 rounded-lg;
+.astro-code {
+  @apply mt-5 p-4 pl-4 rounded-lg;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
-/* Dark mode styles for code blocks */
-.dark .astro-code.github-dark {
+.dark .astro-code {
   @apply bg-gray-100 bg-neutral-200 text-neutral-300;
   background-color: #2f363c !important;
 }
