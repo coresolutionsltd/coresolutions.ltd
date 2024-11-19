@@ -1,4 +1,3 @@
-
 ---
 title: "GitOps for Kubernetes with Argo CD"
 description: "Streamline Kubernetes deployments with GitOps and Argo CD."
