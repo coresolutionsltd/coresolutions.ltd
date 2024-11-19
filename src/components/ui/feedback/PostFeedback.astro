@@ -71,9 +71,9 @@ interface Props {
     gtag('event', 'feedback_submission', {
       'event_category': 'Feedback',
       'event_label': document.title,
-      'value': 'Yes'
+      'value': 1
+      });
     });
-  });
 
   negativeButton.addEventListener('click', function () {
     // Disable both buttons
@@ -89,7 +89,7 @@ interface Props {
     gtag('event', 'feedback_submission', {
       'event_category': 'Feedback',
       'event_label': document.title,
-      'value': 'No'
+      'value': 0
+      });
     });
-  });
 </script>
