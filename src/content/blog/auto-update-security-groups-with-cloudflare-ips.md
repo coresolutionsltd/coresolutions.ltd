@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/cloudflare-ips.jpg"
 cardImageAlt: "Illustration of security groups being updated with cloudflare ips"
 readTime: 4
-tags: [ "cloudflare", "aws" ]
+tags: ["cloudflare", "aws"]
 ---
 
 When leveraging **Cloudflare** to protect your website from malicious actors, you need to allow Cloudflare's IP addresses to send visitor requests to your origin server. This is achieved by whitelisting Cloudflare's IP addresses in your AWS Security Groups.
@@ -49,6 +49,7 @@ import boto3
 
 ec2 = boto3.resource('ec2')
 ```
+
 > Using the EC2 resource provides a higher-level abstraction compared to the client interface, making it easier to work with AWS resources.
 
 **Filtering Security Groups by Tags**
@@ -62,6 +63,7 @@ groups = ec2.security_groups.filter(
     ]
 )
 ```
+
 This returns an iterable collection of SecurityGroup resources that match the specified filter.
 
 For each Security Group, we check for the `CF-Ports` tag to determine which ports need to be updated. If the tag is not present, we default to port `443`.
@@ -90,11 +92,13 @@ cloudflare_ips = response.text.splitlines()
 For each Security Group and port, we compare the current ingress rules with active Cloudflare’s IPs. We add missing rules and remove obsolete ones.
 
 **Getting Current Ingress Rules**
+
 ```python
 current_rules = group.ip_permissions
 ```
 
 **Adding Missing Rules**
+
 ```python
 for port in ports:
     for ip in cloudflare_ips:
@@ -108,6 +112,7 @@ for port in ports:
 ```
 
 **Removing Obsolete Ingress Rules**
+
 ```python
 for port in ports:
     for ip in cloudflare_ips:

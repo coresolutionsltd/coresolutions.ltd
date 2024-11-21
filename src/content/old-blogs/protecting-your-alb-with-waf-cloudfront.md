@@ -10,27 +10,27 @@ Cloudfront
 In order for our solution to work we’ll need to add an origin token header to the cloudfront distribution. You’ll be passing this into the origin ALB. I wont go into the full setup and configuration of the cloudfront distribution. Instead, I’ll show the relevant parts we’ll need to add.
 
 resource "random_string" "origin_token" {
-  length = 30
-  special = false
+length = 30
+special = false
 }
 
 resource "aws_cloudfront_distribution" "distribution" {
-  origin {
-    domain_name   = aws_lb.example.arn
-    origin_id            = "alb"
-    custom_header {
-      name = "X-Origin-Token"
-      value = random_string.origin_token.results
-    }
-  }
+origin {
+domain_name = aws_lb.example.arn
+origin_id = "alb"
+custom_header {
+name = "X-Origin-Token"
+value = random_string.origin_token.results
+}
+}
 
-  enabled = true
-  aliases   = ["yoursite.example.com"]
+enabled = true
+aliases = ["yoursite.example.com"]
 
-  default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id     = "alb"
+default_cache_behavior {
+allowed_methods = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+cached_methods = ["GET", "HEAD"]
+target_origin_id = "alb"
 
     forwarded_values {
       query_string = true
@@ -45,7 +45,8 @@ resource "aws_cloudfront_distribution" "distribution" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
-  }
+
+}
 }
 
 Instead of just forwarding the X-Origin-Token header you can replace it with [“*”] to forward all headers. We’re using this header as it’s what the WAF module we’ll be using later looks for when the origin_token variables passed in.
@@ -54,34 +55,34 @@ WAF
 The Web ACL associated with the Cloudfront distribution is where you can apply any necessary front end protection. The example shown below is applying some AWS managed rule sets & rate limiting. You can of course extend this depending on your requirements.
 
 module "cloudfront_waf" {
-  source = "coresolutions-ltd/wafv2/aws"
+source = "coresolutions-ltd/wafv2/aws"
 
-  name_prefix      = "Cloudfront"
-  default_action   = "allow"
-  scope                = "CLOUDFRONT"
-  rate_limit          = 1000
-  managed_rules = ["AWSManagedRulesCommonRuleSet",
-                                "AWSManagedRulesAmazonIpReputationList",
-                                "AWSManagedRulesAdminProtectionRuleSet",
-                                "AWSManagedRulesKnownBadInputsRuleSet",
-                                "AWSManagedRulesLinuxRuleSet",
-                                "AWSManagedRulesUnixRuleSet"]
+name_prefix = "Cloudfront"
+default_action = "allow"
+scope = "CLOUDFRONT"
+rate_limit = 1000
+managed_rules = ["AWSManagedRulesCommonRuleSet",
+"AWSManagedRulesAmazonIpReputationList",
+"AWSManagedRulesAdminProtectionRuleSet",
+"AWSManagedRulesKnownBadInputsRuleSet",
+"AWSManagedRulesLinuxRuleSet",
+"AWSManagedRulesUnixRuleSet"]
 }
 
 You’ll see the Web ACL associated with the applications load balancer is set to the default action. This will only be allowing traffic containing the origin token header that we defined earlier in the Cloudfront distribution.
 
 module "waf" {
-  source = "coresolutions-ltd/wafv2/aws"
+source = "coresolutions-ltd/wafv2/aws"
 
-  name_prefix    = "ALB"
-  default_action = "block"
-  scope              = "REGIONAL"
-  origin_token    = random_string.origin_token.results
+name_prefix = "ALB"
+default_action = "block"
+scope = "REGIONAL"
+origin_token = random_string.origin_token.results
 }
 
 resource "aws_wafv2_web_acl_association" "waf_association" {
-  resource_arn = aws_lb.example.arn
-  web_acl_arn  = module.waf.waf_arn
+resource_arn = aws_lb.example.arn
+web_acl_arn = module.waf.waf_arn
 }
 
 Requests you may get that don’t contain the X-Origin-Token with the correct value should now be blocked before they hit our ALB by the associated Web ACL.
@@ -92,7 +93,7 @@ We need our ALB security group to allow ingress traffic from Cloudfront. We coul
 We can add the current full list to our security group at deployment time by leveraging the following data block.
 
 data "aws_ip_ranges" "cloudfront" {
-    services = ["cloudfront"]
+services = ["cloudfront"]
 }
 
 Next, you could raise a service request to up the security group rule limit. You could also split the list up into chunks and create the security group(s). Your Cloudfront IP list won’t be maintained following your deployment, they’ll only be updated by you running future terraform deployments.
@@ -100,7 +101,7 @@ Next, you could raise a service request to up the security group rule limit. You
 AWS recommends creating a lambda which subscribes to an SNS topic for Amazon IP changes. You can find full details on how to set this up manually here. Alternatively you can leverage the below terraform module which creates all of the required resources.
 
 module "cloudfront-sg-updater" {
-  source  = "coresolutions-ltd/cloudfront-sg-updater/aws"
+source = "coresolutions-ltd/cloudfront-sg-updater/aws"
 }
 
 You can customise the lambda by passing in the optional name and tag variables. You can find full module details here.

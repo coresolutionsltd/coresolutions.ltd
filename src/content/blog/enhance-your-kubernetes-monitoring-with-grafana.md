@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/grafana.jpg"
 cardImageAlt: "Illustration of monitoring Kubernetes with Grafana"
 readTime: 4
-tags: [ "kubernetes", "grafana", "observability" ]
+tags: ["kubernetes", "grafana", "observability"]
 ---
 
 Wondering why Grafana is an ideal choice for visualising your Kubernetes metrics? This post explores the benefits of using Grafana to gain deep insights into your Kubernetes environment, from installation through to best practices for creating effective dashboards.
@@ -63,6 +63,7 @@ kubectl get secret grafana -o jsonpath="{.data.admin-password}" | base64 --decod
 ```
 
 Then, set up port forwarding:
+
 ```bash
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward $POD_NAME 3000

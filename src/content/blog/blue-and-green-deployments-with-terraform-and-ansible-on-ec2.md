@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/terraform-blue-green.jpg"
 cardImageAlt: "Illustration of blue green deployments"
 readTime: 4
-tags: [ "terraform", "ansible", "ec2" ]
+tags: ["terraform", "ansible", "ec2"]
 ---
 
 This article demonstrates the simplicity and benefits of leveraging Terraform and Ansible for blue-green deployments when running workloads on EC2. We'll explore how this approach can enhance your projects and discuss best practices for structuring your project repository when integrating Terraform and Ansible.

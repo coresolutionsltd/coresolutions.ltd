@@ -3,7 +3,7 @@ import { getImage } from "astro:assets";
 import icon from "@images/icon.png";
 
 interface Favicon {
-  purpose: 'any' | 'maskable' | 'monochrome';
+  purpose: "any" | "maskable" | "monochrome";
   src: ImageMetadata;
   sizes: number[];
 }
@@ -11,10 +11,10 @@ interface Favicon {
 const sizes = [192, 512];
 const favicons: Favicon[] = [
   {
-    purpose: 'any',
+    purpose: "any",
     src: icon,
     sizes,
-  }
+  },
 ];
 
 export const GET: APIRoute = async () => {

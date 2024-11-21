@@ -17,18 +17,16 @@ interface Props {
   <!-- Container for the blog post's cover image -->
   <div class="sm:order-2">
     <div class="relative rounded-lg pt-[50%] sm:pt-[60%]">
-      <a
-        href=`/blog/${blogEntry.slug}`>
+      <a href=`/blog/${blogEntry.slug}`>
         <Image
-        class="absolute start-0 top-0 size-full rounded-xl object-cover transition duration-500 group-hover:scale-110"
-        src={blogEntry.data.cardImage}
-        alt={blogEntry.data.cardImageAlt}
-        draggable={"false"}
-        loading={"eager"}
-        format={"jpg"}
-      />
+          class="absolute start-0 top-0 size-full rounded-xl object-cover transition duration-500 group-hover:scale-110"
+          src={blogEntry.data.cardImage}
+          alt={blogEntry.data.cardImageAlt}
+          draggable={"false"}
+          loading={"eager"}
+          format={"jpg"}
+        />
       </a>
-
     </div>
   </div>
   <!-- Container for the blog post's heading, author avatar, author's role, and read more button -->

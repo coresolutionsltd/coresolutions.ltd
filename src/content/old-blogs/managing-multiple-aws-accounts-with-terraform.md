@@ -6,19 +6,19 @@ If you’re happy to have a single state file in a central account containing al
 
 #The dev account provider configuration
 provider "aws" {
-    alias = "dev"
-    ...
+alias = "dev"
+...
 }
 
 #The test account provider configuration
 provider "aws" {
-    alias = "test"
-    ...
+alias = "test"
+...
 }
 
 resource "aws_instance" "foo" {
-    provider = aws.dev
-    ...
+provider = aws.dev
+...
 }
 
 However when managing multiple AWS accounts, especially when one of them contains a production workload. You may prefer having each state file separate. In order to achieve this we need complete some prerequisites in each AWS account.
@@ -35,8 +35,8 @@ This results in us being able to deploy the exact same terraform code to multipl
 We could use various mechanisms to handle the AWS account switching and authentication such as Terraform workspaces and AWS profiles. You could link the workspace names to the AWS profiles and use the terraform.workspace. Swapping workspaces then would also swap the AWS profile used to deploy.
 
 provider "aws" {
-    region  = "eu-west-1"
-    profile = terraform.workspace
+region = "eu-west-1"
+profile = terraform.workspace
 }
 
 However it makes more sense to move this process outside of Terraform itself. The AWS account being deployed to should be determined as part of the pipeline. Whether it’s a parameter being passed into the pipeline itself, or if a commit to master initially deploys to Dev and then propagates through all environments on its route to live.

@@ -29,7 +29,9 @@ export async function getStaticPaths() {
         const relatedTags = relatedPost.data.tags || [];
 
         // Count how many tags match
-        const matchingTagsCount = relatedTags.filter((tag) => postTags.includes(tag)).length;
+        const matchingTagsCount = relatedTags.filter((tag) =>
+          postTags.includes(tag),
+        ).length;
 
         // Return the relatedPost along with the count of matching tags
         return { relatedPost, matchingTagsCount };
@@ -53,13 +55,14 @@ const { post, relatedPosts } = Astro.props;
 const { Content } = await post.render();
 
 const pageTitle: string = `${post.data.title} | ${SITE.title}`;
-
 ---
 
 <MainLayout title={pageTitle}>
   <section class="py-6 sm:py-8 lg:py-12">
     <div class="mx-auto max-w-screen-xxl px-4 md:px-8">
-      <div class="grid gap-8 md:grid-cols-[30%_70%] lg:grid-cols-[35%_65%] lg:gap-12 md:mr-5">
+      <div
+        class="grid gap-8 md:grid-cols-[30%_70%] lg:grid-cols-[35%_65%] lg:gap-12 md:mr-5"
+      >
         <div>
           <div class="h-64 overflow-hidden rounded-lg shadow-lg md:h-auto">
             <Image
@@ -112,64 +115,64 @@ const pageTitle: string = `${post.data.title} | ${SITE.title}`;
             <Content />
           </article>
 
-      <div
-      class="mt-6 mx-auto grid max-w-screen-sm gap-y-5 sm:flex sm:items-center sm:justify-between sm:gap-y-0 sm:max-w-full"
-      >
-
-      <!-- Blog post tags -->
-      <div class="flex flex-wrap justify-start gap-x-2 gap-y-1 sm:items-center">
-        {post.data.tags?.map((tag: string) => (
-          <a
-            href={`/blog/tag/${encodeURIComponent(tag)}`}
-            class="flex items-center mt-2 gap-x-1.5 rounded-lg bg-neutral-400/30 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-300 hover:bg-blue-400 hover:text-white dark:hover:bg-blue-400 dark:hover:text-white"
+          <div
+            class="mt-6 mx-auto grid max-w-screen-sm gap-y-5 sm:flex sm:items-center sm:justify-between sm:gap-y-0 sm:max-w-full"
           >
-            {tag}
-          </a>
-        ))}
-      </div>
-
-      <!-- Bookmark and Share buttons -->
-      <div class="flex items-center justify-end gap-x-1.5 sm:ml-auto sm:self-end">
-        <div class="mx-3 block"></div>
-        <div class="inline-flex">
-          <SocialShare pageTitle={post.data.title} />
-        </div>
-        </div>
-      </div>
-      <PostFeedback
-        title="Was this post helpful?"
-        page={post.data.title}
-        firstChoice="Yes"
-        secondChoice="No"
-      />
-
-      <!--Related articles section-->
-      {relatedPosts.length > 0 && (
-        <section class="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
-          <div class="mb-10 max-w-2xl">
-            <h2
-              class="text-balance text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+            <!-- Blog post tags -->
+            <div
+              class="flex flex-wrap justify-start gap-x-2 gap-y-1 sm:items-center"
             >
-              Related articles
-            </h2>
+              {
+                post.data.tags?.map((tag: string) => (
+                  <a
+                    href={`/blog/tag/${encodeURIComponent(tag)}`}
+                    class="flex items-center mt-2 gap-x-1.5 rounded-lg bg-neutral-400/30 px-3 py-1.5 text-xs font-medium text-neutral-700 dark:bg-neutral-700/60 dark:text-neutral-300 hover:bg-blue-400 hover:text-white dark:hover:bg-blue-400 dark:hover:text-white"
+                  >
+                    {tag}
+                  </a>
+                ))
+              }
+            </div>
+
+            <!-- Bookmark and Share buttons -->
+            <div
+              class="flex items-center justify-end gap-x-1.5 sm:ml-auto sm:self-end"
+            >
+              <div class="mx-3 block"></div>
+              <div class="inline-flex">
+                <SocialShare pageTitle={post.data.title} />
+              </div>
+            </div>
           </div>
+          <PostFeedback
+            title="Was this post helpful?"
+            page={post.data.title}
+            firstChoice="Yes"
+            secondChoice="No"
+          />
 
-          <div class="grid grid-cols-2 gap-6">
-            {relatedPosts.slice(0, 4).map((entry) => <CardBlogRelated blogEntry={entry} />)}
-          </div>
-        </section>
-      )}
+          <!--Related articles section-->
+          {
+            relatedPosts.length > 0 && (
+              <section class="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+                <div class="mb-10 max-w-2xl">
+                  <h2 class="text-balance text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight">
+                    Related articles
+                  </h2>
+                </div>
 
-
-      </div>
+                <div class="grid grid-cols-2 gap-6">
+                  {relatedPosts.slice(0, 4).map((entry) => (
+                    <CardBlogRelated blogEntry={entry} />
+                  ))}
+                </div>
+              </section>
+            )
+          }
         </div>
       </div>
     </div>
   </section>
-
-
-
-
 </MainLayout>
 
 <style is:global>

@@ -10,18 +10,14 @@ This is perfect for testing one off configuration tests. However any changes mad
 
 version: '3'
 services:
-  jenkins:
-    container_name: jenkins
-    image: 'jenkinsci/blueocean'
-    ports:
-      - '8080:8080'
-      - '8443:8443'
-      - '50000:50000'
-    volumes:
-      - 'jenkins_home:/var/jenkins_home'
+jenkins:
+container_name: jenkins
+image: 'jenkinsci/blueocean'
+ports: - '8080:8080' - '8443:8443' - '50000:50000'
+volumes: - 'jenkins_home:/var/jenkins_home'
 volumes:
-  jenkins_home:
-    driver: local
+jenkins_home:
+driver: local
 
 With this docker-compose.yml template you can persist all jenkins configurations between shutdowns. You can then of course extend your Docker Jenkins instance by creating a new Docker image with a Dockerfile using the above Jenkins Blue Ocean image:
 

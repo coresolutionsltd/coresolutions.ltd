@@ -23,3 +23,10 @@ repos:
     hooks:
       - id: markdown-toc
         files: README\.md$
+  - repo: local
+    hooks:
+      - id: prettier-check
+        name: Run Prettier Check
+        entry: ./scripts/precommit-prettier.sh
+        language: system
+        files: \.(js|jsx|ts|tsx|astro|css|scss|html|json|yaml|md)$

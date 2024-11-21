@@ -7,51 +7,55 @@ The CoreDNS Route53 plugin allows records from Route53 to be directly available 
 Configuration is super simple! All you need to do is edit the CoreDNS config map and add your Route 53 hosted zone details to the Corefile section.
 
 <domain> {
-      route53 <domain>.:<Hosted Zone ID>
-} 
+route53 <domain>.:<Hosted Zone ID>
+}
 
 The modified Config Map should resemble something like this:
 
 # Please edit the object below. Lines beginning with a '#' will be ignored,
+
 # and an empty file will abort the edit. If an error occurs while saving this file will be
+
 # reopened with the relevant failures.
+
 #
+
 apiVersion: v1
 data:
-  Corefile: |
-    <domain> {
-      route53 <domain>.:<Hosted Zone ID>
-    }
-    .:53 {
-        errors
-        health
-        kubernetes cluster.local in-addr.arpa ip6.arpa {
-          pods insecure
-          fallthrough in-addr.arpa ip6.arpa
-        }
-        prometheus :9153
-        forward . /etc/resolv.conf
-        cache 30
-        loop
-        reload
-        loadbalance
-    }
+Corefile: |
+<domain> {
+route53 <domain>.:<Hosted Zone ID>
+}
+.:53 {
+errors
+health
+kubernetes cluster.local in-addr.arpa ip6.arpa {
+pods insecure
+fallthrough in-addr.arpa ip6.arpa
+}
+prometheus :9153
+forward . /etc/resolv.conf
+cache 30
+loop
+reload
+loadbalance
+}
 kind: ConfigMap
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","data":{"Corefile":".:53 {\n    errors\n    health\n    kubernetes cluster.local in-addr.arpa ip6.arpa {\n      pods insecure\n      fallthrough in-addr.arpa ip6.arpa\n    }\n    prometheu
-s :9153\n    forward . /etc/resolv.conf\n    cache 30\n    loop\n    reload\n    loadbalance\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"eks.amazonaws.com/component":"coredns","k8s-app":"kube
+annotations:
+kubectl.kubernetes.io/last-applied-configuration: |
+{"apiVersion":"v1","data":{"Corefile":".:53 {\n errors\n health\n kubernetes cluster.local in-addr.arpa ip6.arpa {\n pods insecure\n fallthrough in-addr.arpa ip6.arpa\n }\n prometheu
+s :9153\n forward . /etc/resolv.conf\n cache 30\n loop\n reload\n loadbalance\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"eks.amazonaws.com/component":"coredns","k8s-app":"kube
 -dns"},"name":"coredns","namespace":"kube-system"}}
-  creationTimestamp: "2021-01-06T17:11:23Z"
-  labels:
-    eks.amazonaws.com/component: coredns
-    k8s-app: kube-dns
-  name: coredns
-  namespace: kube-system
-  resourceVersion: "179"
-  selfLink: /api/v1/namespaces/kube-system/configmaps/coredns
-  uid: d4c7f4c4-a5b1-457f-89e5-29b535bd10ce
+creationTimestamp: "2021-01-06T17:11:23Z"
+labels:
+eks.amazonaws.com/component: coredns
+k8s-app: kube-dns
+name: coredns
+namespace: kube-system
+resourceVersion: "179"
+selfLink: /api/v1/namespaces/kube-system/configmaps/coredns
+uid: d4c7f4c4-a5b1-457f-89e5-29b535bd10ce
 
 The above example uses implicit AWS credentials. You’ll be able to explicitly define them and configure various settings. You can find more examples of this on the coredns plugin page.
 

@@ -13,19 +13,19 @@ interface Props {
 <a
   class="group block rounded-xl outline-none ring-zinc-500 transition duration-300 focus-visible:ring dark:ring-zinc-200 dark:focus:outline-none"
   href=`/blog/${blogEntry.slug}`
-  <div>
-    <Image
-      class="aspect-video rounded-xl"
-      src={blogEntry.data.cardImage}
-      alt={blogEntry.data.cardImageAlt}
-      draggable={"false"}
-      format={"jpg"}
-    />
-    <!-- The title of the blog post -->
-    <h3
-      class="mt-2 text-balance text-lg font-medium text-neutral-800 group-hover:text-blue-400 dark:text-neutral-300 dark:group-hover:text-neutral-50"
-    >
-      {blogEntry.data.title}
-    </h3>
-  </div></a
+  <div
 >
+  <Image
+    class="aspect-video rounded-xl"
+    src={blogEntry.data.cardImage}
+    alt={blogEntry.data.cardImageAlt}
+    draggable={"false"}
+    format={"jpg"}
+  />
+  <!-- The title of the blog post -->
+  <h3
+    class="mt-2 text-balance text-lg font-medium text-neutral-800 group-hover:text-blue-400 dark:text-neutral-300 dark:group-hover:text-neutral-50"
+  >
+    {blogEntry.data.title}
+  </h3>
+</a>

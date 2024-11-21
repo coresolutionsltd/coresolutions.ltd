@@ -25,54 +25,57 @@ A Quick Example using Chef Inspec
 The testing pipeline stage could include various Inspec profiles or other compliance and security tests. This would likely include application specific tests to validate the application has deployed exactly as expected and that it meets certain security and compliance criteria.
 
 def terraformApply() {
-    sh("""
-        cd Terraform/Demo;
-        terraform apply tfout -no-color
+sh("""
+cd Terraform/Demo;
+terraform apply tfout -no-color
 
         mkdir ../../Inspec/files/
         terraform output --json > ../../Inspec/files/output.json
     """)
+
 }
 
 def inspecValidation() {
-    sh("""
-        inspec exec Inspec/ -t aws:// --input workspace=${params.Colour}
-    """)
+sh("""
+inspec exec Inspec/ -t aws:// --input workspace=${params.Colour}
+""")
 }
 
 In the test below we’re loading content from the output.json file, this is created in the terraformApply function. This allows us to use all of the values set in outputs.tf within our tests.
 
 # load data from Terraform output
+
 content = inspec.profile.file("output.json")
 params = JSON.parse(content)
 
 # store vpc in variable VPC_ID
+
 VPC_ID = params['vpc_id']['value']
 
 describe aws_security_group(group_name: "#{input('workspace')}-Instance-SG") do
-  it                                        { should exist }
-  its('group_name')              { should eq "#{input('workspace')}-Instance-SG" }
-  its('inbound_rules_count') { should eq 2 }
-  it                                       { should allow_in(port: 443) }
-  it                                       { should allow_in(port: 80) }
-  its('vpc_id')                       { should eq VPC_ID }
+it { should exist }
+its('group_name') { should eq "#{input('workspace')}-Instance-SG" }
+its('inbound_rules_count') { should eq 2 }
+it { should allow_in(port: 443) }
+it { should allow_in(port: 80) }
+its('vpc_id') { should eq VPC_ID }
 end
 
 You can find the report of the above test below.
 
-+ inspec exec Inspec/ -t aws:// --input workspace=Blue
+- inspec exec Inspec/ -t aws:// --input workspace=Blue
 
 Profile: Application Infrastructure Testing (terraform-pipeline)
 Version: 1.0.0
-Target:  aws://
+Target: aws://
 
-  EC2 Security Group ID: sg-xxx Name: Blue-Instance-SG VPC ID: vpc-xxx 
-     ✔  is expected to exist
-     ✔  is expected to allow in {:port=>443}
-     ✔  is expected to allow in {:port=>80}
-     ✔  group_name is expected to eq "Blue-Instance-SG"
-     ✔  inbound_rules_count is expected to eq 2
-     ✔  vpc_id is expected to eq "vpc-xxx"
+EC2 Security Group ID: sg-xxx Name: Blue-Instance-SG VPC ID: vpc-xxx
+✔ is expected to exist
+✔ is expected to allow in {:port=>443}
+✔ is expected to allow in {:port=>80}
+✔ group_name is expected to eq "Blue-Instance-SG"
+✔ inbound_rules_count is expected to eq 2
+✔ vpc_id is expected to eq "vpc-xxx"
 
 Test Summary: 6 successful, 0 failures, 0 skipped
 

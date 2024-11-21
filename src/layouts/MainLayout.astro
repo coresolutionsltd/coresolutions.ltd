@@ -36,20 +36,24 @@ interface Props {
       }
     </script>
     <script>
-      import '@styles/global.css';
+      import "@styles/global.css";
       import "@scripts/lenisSmoothScroll.js";
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Z80DGPB0B3"></script>
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Z80DGPB0B3"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-Z80DGPB0B3');
+      gtag("config", "G-Z80DGPB0B3");
     </script>
-
   </head>
   <body
     class="bg-neutral-200 selection:bg-teal-400 selection:text-neutral-700 dark:bg-neutral-800"

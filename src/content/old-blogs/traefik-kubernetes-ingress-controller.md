@@ -48,10 +48,9 @@ Firstly, specific tags will be required on the subnet you’re using. This will 
 Annotations are also required to allow EKS to auto create the load balancer in a private subnet. The below annotations would create a Network Load Balancer in a private subnet.
 
 annotations: {
-    service.beta.kubernetes.io/aws-load-balancer-type: nlb,
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-  }
-
+service.beta.kubernetes.io/aws-load-balancer-type: nlb,
+service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+}
 
 Depending how you install Traefik will also determine how you can add these. If installing via Helm you can add them on the cli during the installation or by creating a values.yml and passing it in with the -f option helm install traefik traefik/traefik -f values.yml.
 
@@ -64,51 +63,48 @@ Now we have Traefik installed we can deploy a new workload to our cluster to tes
 apiVersion: v1
 kind: Pod
 metadata:
-  name: whoami
-  namespace: default
-  labels:
-    app: whoami
+name: whoami
+namespace: default
+labels:
+app: whoami
 spec:
-  containers:
-    - name: whoami
-      image: containous/whoami:latest
-      ports:
-        - containerPort: 80
+containers: - name: whoami
+image: containous/whoami:latest
+ports: - containerPort: 80
 
 We’ve got a pod, now we just need a service!
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: whoami
-  namespace: default
+name: whoami
+namespace: default
 spec:
-  ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 80
-  selector:
-    app: whoami
-  type: ClusterIP
+ports: - port: 80
+protocol: TCP
+targetPort: 80
+selector:
+app: whoami
+type: ClusterIP
 
 Now our whoami pod is in a running state with an accompanying service, we can create an ingress route which defines the entrypoints it should be using along with the routes.
 
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: whoami
-  namespace: default
+name: whoami
+namespace: default
 
 spec:
-  entryPoints:
-    - web
+entryPoints: - web
 
-  routes:
-  - match: PathPrefix(`/hello`)
-    kind: Rule
-    services:
-    - name: whoami
-      port: 80
+routes:
+
+- match: PathPrefix(`/hello`)
+  kind: Rule
+  services:
+  - name: whoami
+    port: 80
 
 Any requests coming through the loadbalancer on the web entrypoint / port with the path prefix of /hello will now be routed through Traefik to the whoami service/pods. ?
 
@@ -119,30 +115,29 @@ We just need to define the Middleware and update the IngressRoute to use said Mi
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: stripprefix
+name: stripprefix
 spec:
-  stripPrefix:
-    prefixes:
-      - /hello
+stripPrefix:
+prefixes: - /hello
 
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: whoami
-  namespace: default
+name: whoami
+namespace: default
 
 spec:
-  entryPoints:
-    - web
+entryPoints: - web
 
-  routes:
-  - match: PathPrefix(`/hello`)
-    kind: Rule
-    services:
-    - name: whoami
-      port: 80
+routes:
+
+- match: PathPrefix(`/hello`)
+  kind: Rule
+  services:
+  - name: whoami
+    port: 80
     middlewares:
-      - name: stripprefix
+    - name: stripprefix
 
 The above example routes requests from /hello to the whoami service, however this time it removes /hello from the path.
 Traefik Dashboard
@@ -150,24 +145,21 @@ Traefik Dashboard
 There are two methods to install the Traefik Dashboard, the quickest is the insecure route. To enable the insecure traefik dashboard, use the following Traefik options. If you’re installing via helm, you’ll need to add this into your values.yml.
 
 api:
-  dashboard: true
-  insecure: true
+dashboard: true
+insecure: true
 
 We’ll need an IngressRoute to allow access from the web entrypoint.
 
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dashboard
+name: dashboard
 spec:
-  entryPoints:
-    - web
-  routes:
-    - match: (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
-      kind: Rule
-      services:
-        - name: api@internal
-          kind: TraefikService
+entryPoints: - web
+routes: - match: (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+kind: Rule
+services: - name: api@internal
+kind: TraefikService
 
     Both /dashboard & /api PathPrefixes are required
 
@@ -176,7 +168,7 @@ traefik dashboard
 
 As mentioned, this is fine for testing. However, anything else should be exposed securely or accessed via kubectl port-forward.
 
-    The above setup will not provide a production ready Traefik Kubernetes Ingress Controller. It’s only for testing and evaluation purposes. 
+    The above setup will not provide a production ready Traefik Kubernetes Ingress Controller. It’s only for testing and evaluation purposes.
 
 Next Steps
 

@@ -6,7 +6,7 @@ const { title, url, arrow } = Astro.props;
 interface Props {
   title?: string;
   url?: string;
-  arrow?:string;
+  arrow?: string;
 }
 // Define CSS classes for styling the button
 const baseClasses =
@@ -24,10 +24,9 @@ const ringClasses = "dark:ring-zinc-200";
   class={`${baseClasses} ${borderClasses} ${bgColorClasses} ${disableClasses} ${fontSizeClasses} ${ringClasses}`}
   href={url}
 >
-
-  {arrow === "left" ? <Icon name="arrowLeft" /> : null }
+  {arrow === "left" ? <Icon name="arrowLeft" /> : null}
 
   {title}
 
-  {arrow  === "right" ? <Icon name="arrowRight" /> : null }
+  {arrow === "right" ? <Icon name="arrowRight" /> : null}
 </a>

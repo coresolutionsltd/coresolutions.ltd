@@ -1,5 +1,5 @@
 ---
-import type { GetStaticPaths } from 'astro';
+import type { GetStaticPaths } from "astro";
 import MainLayout from "@/layouts/MainLayout.astro";
 import CardBlog from "@components/ui/cards/CardBlog.astro";
 import CardBlogRecent from "@components/ui/cards/CardBlogRecent.astro";
@@ -8,22 +8,22 @@ import type { CollectionEntry } from "astro:content";
 import { SITE, BLOG } from "@data/constants";
 import Navigation from "@components/ui/buttons/Navigation.astro";
 
-export const getStaticPaths = (async ({paginate}) => {
+export const getStaticPaths = (async ({ paginate }) => {
   // Get all blogs and sort them based on publish date
-const blogEntries = await getCollection("blog");
+  const blogEntries = await getCollection("blog");
 
-// Sort the fetched blog posts by publication date
-const blogPosts: CollectionEntry<"blog">[] = blogEntries.sort(
-  (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+  // Sort the fetched blog posts by publication date
+  const blogPosts: CollectionEntry<"blog">[] = blogEntries.sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+      b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
 
-  return paginate(blogPosts, { pageSize: 13 } );
+  return paginate(blogPosts, { pageSize: 13 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 
-const pageNums = Array.from({length: page.lastPage}, (_, i) => i + 1);
+const pageNums = Array.from({ length: page.lastPage }, (_, i) => i + 1);
 
 // Define variables for page content
 const title: string = "Your Gateway to Operational Excellence";
@@ -31,7 +31,6 @@ const subTitle: string =
   "Explore the latest news, tips, and insights from Core Solutions to enhance your next project. From Kubernetes best practices to project management strategies, our blog dives deep.";
 
 const pageTitle: string = `Blog | ${SITE.title}`;
-
 ---
 
 <MainLayout
@@ -47,7 +46,7 @@ const pageTitle: string = `Blog | ${SITE.title}`;
       "@type": "WebSite",
       url: SITE.url,
       name: SITE.title,
-      description: SITE.description
+      description: SITE.description,
     },
     inLanguage: "en-US",
   }}
@@ -72,66 +71,63 @@ const pageTitle: string = `Blog | ${SITE.title}`;
   </section>
 
   <!--Most recent blog post-->
-  {page.currentPage === 1 && (
-    <section
-    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
-  >
-    <CardBlogRecent blogEntry={page.data[0]} />
-  </section>
-  )}
-
+  {
+    page.currentPage === 1 && (
+      <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+        <CardBlogRecent blogEntry={page.data[0]} />
+      </section>
+    )
+  }
 
   <section
     class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
   >
     <!--Blog posts grid-->
     <div id="blog-posts" class="grid gap-6 lg:grid-cols-2">
-      {page.currentPage === 1
-        ? page.data.slice(1).map((blogEntry) => <CardBlog blogEntry={blogEntry} />)
-        : page.data.map((blogEntry) => <CardBlog blogEntry={blogEntry} />)
+      {
+        page.currentPage === 1
+          ? page.data
+              .slice(1)
+              .map((blogEntry) => <CardBlog blogEntry={blogEntry} />)
+          : page.data.map((blogEntry) => <CardBlog blogEntry={blogEntry} />)
       }
     </div>
   </section>
 
   <section class="mb-12">
     {
-      (page.lastPage > 1) && (
-      <nav class="flex items-center justify-center space-x-4 mt-8">
-        {page.url.prev && (
-          <Navigation
-            url={page.url.prev}
-            title="Previous Page"
-            arrow="left"
-            data-astro-prefetch
-          />
-        )}
+      page.lastPage > 1 && (
+        <nav class="flex items-center justify-center space-x-4 mt-8">
+          {page.url.prev && (
+            <Navigation
+              url={page.url.prev}
+              title="Previous Page"
+              arrow="left"
+              data-astro-prefetch
+            />
+          )}
 
-        <div class="flex space-x-3">
-          {pageNums.map((num) => (
-            <a
-              href={`/blog/${num === 1 ? '' : num + '/'}`}
-              class={`px-4 py-2 rounded ${num === page.currentPage ? 'bg-gray-600 text-white' : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'}`}
-            >
-              {num}
-            </a>
-          ))}
-        </div>
+          <div class="flex space-x-3">
+            {pageNums.map((num) => (
+              <a
+                href={`/blog/${num === 1 ? "" : num + "/"}`}
+                class={`px-4 py-2 rounded ${num === page.currentPage ? "bg-gray-600 text-white" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"}`}
+              >
+                {num}
+              </a>
+            ))}
+          </div>
 
-        {page.url.next && (
-          <Navigation
-            url={page.url.next}
-            title="Next Page"
-            arrow="right"
-            data-astro-prefetch
-          />
-        )}
-      </nav>
+          {page.url.next && (
+            <Navigation
+              url={page.url.next}
+              title="Next Page"
+              arrow="right"
+              data-astro-prefetch
+            />
+          )}
+        </nav>
       )
     }
   </section>
-
-
-
 </MainLayout>
-
-

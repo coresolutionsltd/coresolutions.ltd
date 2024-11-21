@@ -42,20 +42,18 @@ An example ingress resource that will create a public ALB can be seen below. Bec
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: echoserver
-  namespace: default
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/group.name: myalb
+name: echoserver
+namespace: default
+annotations:
+kubernetes.io/ingress.class: alb
+alb.ingress.kubernetes.io/scheme: internet-facing
+alb.ingress.kubernetes.io/group.name: myalb
 spec:
-  rules:
-    - http:
-        paths:
-          - path: "/"
-            backend:
-              serviceName: echoserver
-              servicePort: 80
+rules: - http:
+paths: - path: "/"
+backend:
+serviceName: echoserver
+servicePort: 80
 
 If you hit the following error when creating a new Ingress resource and the rule isn’t appearing in your ALB:
 

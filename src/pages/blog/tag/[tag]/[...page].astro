@@ -10,27 +10,32 @@ export async function getStaticPaths() {
   const blogPosts = await getCollection("blog");
 
   // Extract unique tags from all blog posts
-  const allTags = new Set(blogPosts.flatMap(post => post.data.tags || []));
+  const allTags = new Set(blogPosts.flatMap((post) => post.data.tags || []));
 
-  const postsPerPage = 3;  // Set how many posts per page
+  const postsPerPage = 3; // Set how many posts per page
   const paths = [];
 
   // Create paths for each tag, including pagination
   for (const tag of allTags) {
-    const taggedPosts = blogPosts.filter(post => (post.data.tags || []).includes(tag));
+    const taggedPosts = blogPosts.filter((post) =>
+      (post.data.tags || []).includes(tag),
+    );
     const totalPages = Math.ceil(taggedPosts.length / postsPerPage);
 
     for (let page = 1; page <= totalPages; page++) {
       paths.push({
         params: {
           tag,
-          page: page === 1 ? undefined : page.toString()  // No need for '/page/1'
+          page: page === 1 ? undefined : page.toString(), // No need for '/page/1'
         },
         props: {
-          taggedPosts: taggedPosts.slice((page - 1) * postsPerPage, page * postsPerPage),
+          taggedPosts: taggedPosts.slice(
+            (page - 1) * postsPerPage,
+            page * postsPerPage,
+          ),
           totalPages,
-          currentPage: page
-        }
+          currentPage: page,
+        },
       });
     }
   }
@@ -43,7 +48,6 @@ const { taggedPosts, totalPages, currentPage } = Astro.props;
 
 // Define variables for page content
 const pageTitle: string = `${capitalize(tag)} | ${SITE.title} | Blog`;
-
 ---
 
 <MainLayout
@@ -59,63 +63,67 @@ const pageTitle: string = `${capitalize(tag)} | ${SITE.title} | Blog`;
       "@type": "WebSite",
       url: SITE.url,
       name: SITE.title,
-      description: SITE.description
+      description: SITE.description,
     },
     inLanguage: "en-US",
   }}
 >
-  <section class="mx-auto max-w-[85rem] space-y-8 px-4 pt-16 sm:px-6 lg:px-8 2xl:max-w-full">
-
+  <section
+    class="mx-auto max-w-[85rem] space-y-8 px-4 pt-16 sm:px-6 lg:px-8 2xl:max-w-full"
+  >
     <!-- Page header -->
     <div class="mx-auto max-w-3xl text-left sm:text-center">
-      <h1 class="block text-balance text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-5xl lg:text-6xl">
+      <h1
+        class="block text-balance text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-5xl lg:text-6xl"
+      >
         Posts tagged with: {tag}
       </h1>
     </div>
   </section>
 
-  <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full">
+  <section
+    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
+  >
     <!-- Blog posts grid -->
     <div id="blog-posts" class="grid gap-6 lg:grid-cols-2">
-      {taggedPosts.map((blogEntry) => (
-        <CardBlog blogEntry={blogEntry} />
-      ))}
+      {taggedPosts.map((blogEntry) => <CardBlog blogEntry={blogEntry} />)}
     </div>
   </section>
 
   <section class="mb-12">
-    {taggedPosts.length > 0 && ( // Check if there are any tagged posts
-      <nav class="flex items-center justify-center space-x-4 mt-8">
-        {currentPage > 1 && (
-          <Navigation
-            url={`/blog/tag/${tag}${currentPage === 2 ? '' : `/${currentPage - 1}`}`}
-            title="Previous Page"
-            arrow="left"
-            data-astro-prefetch
-          />
-        )}
+    {
+      taggedPosts.length > 0 && ( // Check if there are any tagged posts
+        <nav class="flex items-center justify-center space-x-4 mt-8">
+          {currentPage > 1 && (
+            <Navigation
+              url={`/blog/tag/${tag}${currentPage === 2 ? "" : `/${currentPage - 1}`}`}
+              title="Previous Page"
+              arrow="left"
+              data-astro-prefetch
+            />
+          )}
 
-        <div class="flex space-x-3">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-            <a
-              href={`/blog/tag/${tag}${num === 1 ? '' : `/${num}`}`}
-              class={`px-4 py-2 rounded ${num === currentPage ? 'bg-gray-600 text-white' : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'}`}
-            >
-              {num}
-            </a>
-          ))}
-        </div>
+          <div class="flex space-x-3">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <a
+                href={`/blog/tag/${tag}${num === 1 ? "" : `/${num}`}`}
+                class={`px-4 py-2 rounded ${num === currentPage ? "bg-gray-600 text-white" : "text-gray-500 hover:text-gray-800 hover:bg-gray-100"}`}
+              >
+                {num}
+              </a>
+            ))}
+          </div>
 
-        {currentPage < totalPages && (
-          <Navigation
-            url={`/blog/tag/${tag}/${currentPage + 1}`}
-            title="Next Page"
-            arrow="right"
-            data-astro-prefetch
-          />
-        )}
-      </nav>
-    )}
+          {currentPage < totalPages && (
+            <Navigation
+              url={`/blog/tag/${tag}/${currentPage + 1}`}
+              title="Next Page"
+              arrow="right"
+              data-astro-prefetch
+            />
+          )}
+        </nav>
+      )
+    }
   </section>
-
 </MainLayout>

@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/eks-iam.jpg"
 cardImageAlt: "Illustration of IAM roles on AWS EKS"
 readTime: 4
-tags: [ "kubernetes", "eks", "aws", "iam" ]
+tags: ["kubernetes", "eks", "aws", "iam"]
 ---
 
 Before the introduction of IAM Roles for Service Accounts (IRSA), managing IAM roles for pods running in EKS was a tad limited. The easiest option was to assign pod permissions directly to the EKS nodes. However, this approach came with a major downside: it was impossible to follow least-privilege practices. Any pod running on that node would have access to those extended permissions.
@@ -73,7 +73,6 @@ module "assumable_role" {
 ```
 
 This ensures that only specific service accounts can assume the role.
-
 
 ## Conclusion
 

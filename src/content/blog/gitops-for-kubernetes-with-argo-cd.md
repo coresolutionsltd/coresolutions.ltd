@@ -6,12 +6,12 @@ author: "Billy"
 cardImage: "@/images/blog/argo-gitops.jpg"
 cardImageAlt: "ArgoCD managing Kubernetes workloads"
 readTime: 4
-tags: [ "kubernetes", "argocd", "gitops" ]
+tags: ["kubernetes", "argocd", "gitops"]
 ---
 
 ## What is GitOps?
 
-GitOps is a modern approach to managing infrastructure and deploying software, using Git as the single source of truth. This technique leverages Git's powerful features to streamline and automate deployments. Pull Requests (PRs) are used to propose and review changes, enabling a fully auditable and transparent workflow. 
+GitOps is a modern approach to managing infrastructure and deploying software, using Git as the single source of truth. This technique leverages Git's powerful features to streamline and automate deployments. Pull Requests (PRs) are used to propose and review changes, enabling a fully auditable and transparent workflow.
 
 By using Git as the source of truth, GitOps ensures consistency across environments, minimises code duplication, and aligns development, staging, and production configurations. This builds confidence when applying changes to production.
 
@@ -42,7 +42,7 @@ spec:
     namespace: guestbook
 ```
 
-This manifest defines an application called `guestbook`, specifying the source repository, target cluster, and namespace. 
+This manifest defines an application called `guestbook`, specifying the source repository, target cluster, and namespace.
 
 ## Sync Policies in Argo CD
 
@@ -68,6 +68,7 @@ syncPolicy:
 ```
 
 This configuration enables automated syncing, resource pruning, and self-healing. It also includes retry logic and additional sync options to fine-tune deployment behaviour. For example:
+
 - `Validate=false` disables resource validation.
 - `CreateNamespace=true` ensures the namespace exists before deployment.
 
@@ -115,6 +116,7 @@ Triggers and templates allow fine-grained control over notification conditions a
 ### Prometheus Metrics
 
 Argo CD natively exposes Prometheus metrics, enabling monitoring at two endpoints:
+
 - `argocd-metrics:8082/metrics` for application metrics
 - `argocd-server-metrics:8083/metrics` for API server metrics
 

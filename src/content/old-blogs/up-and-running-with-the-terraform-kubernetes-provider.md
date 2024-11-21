@@ -10,34 +10,34 @@ Setup
 First, the provider needs configuring with credentials before use. The simplest configuration is to specify the kubeconfig path.
 
 provider "kubernetes" {
-  config_path = "~/.kube/config"
+config_path = "~/.kube/config"
 }
 
 Another configuration option is to statically define TLS certificate credentials.
 
 provider "kubernetes" {
-  host = "https://192.168.43.5"
+host = "https://192.168.43.5"
 
-  client_certificate     = "${file("~/.kube/client-cert.pem")}"
+client_certificate = "${file("~/.kube/client-cert.pem")}"
   client_key             = "${file("~/.kube/client-key.pem")}"
-  cluster_ca_certificate = "${file("~/.kube/cluster-ca-cert.pem")}"
+cluster_ca_certificate = "${file("~/.kube/cluster-ca-cert.pem")}"
 }
 
 You could also use an OAuth token.
 
 data "aws_eks_cluster" "example" {
-  name = "example"
+name = "example"
 }
 
 data "aws_eks_cluster_auth" "example" {
-  name = "example"
+name = "example"
 }
 
 provider "kubernetes" {
-  host                          = data.aws_eks_cluster.example.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.example.certificate_authority[0].data)
-  token                        = data.aws_eks_cluster_auth.example.token
-  load_config_file         = false
+host = data.aws_eks_cluster.example.endpoint
+cluster_ca_certificate = base64decode(data.aws_eks_cluster.example.certificate_authority[0].data)
+token = data.aws_eks_cluster_auth.example.token
+load_config_file = false
 }
 
 Resources
@@ -45,32 +45,33 @@ Resources
 Now that we have the provider configured to our desired Kubernetes cluster, lets create some resources.
 
 resource "kubernetes_namespace" "nginx" {
-  metadata {
-    annotations = {
-      name = "nginx"
-    }
+metadata {
+annotations = {
+name = "nginx"
+}
 
     labels = {
       mylabel = "nginx"
     }
 
     name = "nginx"
-  }
+
+}
 }
 
 A Deployment ensures that a specified number of pod replicas are running. The below example creates a deployment with 3 replicas specified in the nginx namespace we defined above.
 
 resource "kubernetes_deployment" "deployment-example" {
-  metadata {
-    name = "deployment-example"
-    namespace = "nginx"
-    labels = {
-      test = "Example"
-    }
-  }
+metadata {
+name = "deployment-example"
+namespace = "nginx"
+labels = {
+test = "Example"
+}
+}
 
-  spec {
-    replicas = 3
+spec {
+replicas = 3
 
     selector {
       match_labels = {
@@ -103,26 +104,28 @@ resource "kubernetes_deployment" "deployment-example" {
         }
       }
     }
-  }
+
+}
 }
 
 We could then create an Horizontal Pod Autoscaler to auto scale the above deployment based on CPU metrics by leveraging the kubernetes_horizontal_pod_autoscaler. The below example will create an HPA for the above deployment.
 
 resource "kubernetes_horizontal_pod_autoscaler" "hpa-example" {
-  metadata {
-    name = "hpa-example"
-  }
+metadata {
+name = "hpa-example"
+}
 
-  spec {
-    max_replicas                                  = 10
-    min_replicas                                   = 3
-    target_cpu_utilization_percentage = 60
+spec {
+max_replicas = 10
+min_replicas = 3
+target_cpu_utilization_percentage = 60
 
     scale_target_ref {
       kind = "Deployment"
       name = "deployment-example"
     }
-  }
+
+}
 }
 
     By default, the provider ignores any annotations whose key names end with kubernetes.io.

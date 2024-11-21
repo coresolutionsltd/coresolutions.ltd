@@ -64,12 +64,13 @@ const { title, subTitle, src, alt, features } = Astro.props;
     <div class="lg:col-span-2">
       <div class="grid gap-8 sm:grid-cols-2 md:gap-12">
         <!-- Injecting IconBlock components with different properties -->
-        { features &&
-          features.map((feature) => (
-            <IconBlock heading={feature.heading} content={feature.content}>
-              <Icon name={feature.svg} />
-            </IconBlock>
-          ))
+        {
+          features &&
+            features.map((feature) => (
+              <IconBlock heading={feature.heading} content={feature.content}>
+                <Icon name={feature.svg} />
+              </IconBlock>
+            ))
         }
       </div>
     </div>

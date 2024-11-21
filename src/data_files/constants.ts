@@ -3,14 +3,17 @@ import ogImageSrc from "@images/social.png";
 export const SITE = {
   title: "Core Solutions",
   tagline: "Cloud & DevOps Specialists",
-  description: "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
-  description_short: "Cloud consultancy dedicated to innovation and collaboration.",
+  description:
+    "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
+  description_short:
+    "Cloud consultancy dedicated to innovation and collaboration.",
   url: "https://coresolutions.ltd",
 };
 
 export const BLOG = {
   title: "Blog - Core Solutions",
-  description: "Stay up-to-date with the latest news, tips, and insights on all aspects of software development.",
+  description:
+    "Stay up-to-date with the latest news, tips, and insights on all aspects of software development.",
   url: "https://coresolutions.ltd/blog",
 };
 
@@ -39,6 +42,7 @@ export const OG = {
   type: "website",
   url: SITE.url,
   title: `${SITE.title} - Cloud & DevOps Services`,
-  description: "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
+  description:
+    "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
   image: ogImageSrc,
 };

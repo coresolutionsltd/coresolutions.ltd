@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/rotate-secrets.jpg"
 cardImageAlt: "Illustration of rotating secrets on aws"
 readTime: 4
-tags: [ "secrets-manager", "aws" ]
+tags: ["secrets-manager", "aws"]
 ---
 
 Automatically rotating credentials is a critical aspect of maintaining secure infrastructure. **AWS Secrets Manager** enables you to follow security best practices by allowing you to rotate your credentials on a set schedule in a safe and controlled manner. In this article, we'll explore how to use AWS Secrets Manager to auto-rotate RDS credentials and dynamically update WordPress configuration on some EC2 instances.
@@ -57,6 +57,7 @@ The Lambda function handles the rotation of the RDS credentials. We need to modi
 To update the `wp-config.php` file on all running EC2 instances, we'll use **AWS Systems Manager's Run Command** feature. This allows us to execute commands on multiple instances simultaneously.
 
 **Prerequisites:**
+
 - **SSM Agent**: Ensure that the SSM Agent is installed on all EC2 instances.
 - **IAM Roles**:
   - **EC2 Instance Profile**: Attach an IAM role to the EC2 instances with permissions to communicate with SSM.

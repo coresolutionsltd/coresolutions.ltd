@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/kubernetes-scaling.jpg"
 cardImageAlt: "Kubernetes scaling best practices"
 readTime: 4
-tags: [ "kubernetes" ]
+tags: ["kubernetes"]
 ---
 
 Kubernetes autoscaling enables clusters to dynamically adjust to changes in demand, reducing over-provisioning and lowering operational costs. By combining autoscaling with strategies such as AWS Spot instances, organisations can achieve even greater cost efficiency.
@@ -18,6 +18,7 @@ Effective scaling in Kubernetes requires coordination between the **pod layer** 
 ## Kubernetes Autoscaling Overview
 
 Kubernetes supports two primary scaling mechanisms:
+
 - **Horizontal Pod Autoscaler (HPA):** Automatically adjusts the number of pod replicas based on resource usage or custom metrics.
 - **Cluster Autoscaler (CA):** Adjusts the number of nodes in the cluster based on pod scheduling requirements.
 
@@ -49,15 +50,15 @@ spec:
         run: hpa-example
     spec:
       containers:
-      - name: hpa-example
-        image: k8s.gcr.io/hpa-example
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: 500m
-          requests:
-            cpu: 200m
+        - name: hpa-example
+          image: k8s.gcr.io/hpa-example
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -96,6 +97,7 @@ kubectl run -i --tty load-generator --rm --image=busybox --restart=Never -- /bin
 The Cluster Autoscaler automatically scales nodes in response to unscheduled pods due to resource constraints. It can either discover Auto Scaling Groups (ASGs) via tags or be configured manually.
 
 Key features:
+
 - Automatically adds nodes when pod scheduling fails.
 - Scales down idle nodes after 10 minutes of inactivity.
 - Respects ASG minimum/maximum values.
@@ -173,12 +175,12 @@ spec:
       template:
         spec:
           containers:
-          - name: scale
-            image: bitnami/kubectl
-            command:
-            - /bin/sh
-            - -c
-            - kubectl scale --replicas=3 deployment/nginx
+            - name: scale
+              image: bitnami/kubectl
+              command:
+                - /bin/sh
+                - -c
+                - kubectl scale --replicas=3 deployment/nginx
           restartPolicy: OnFailure
 ```
 

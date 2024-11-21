@@ -138,7 +138,7 @@ const homeUrl = "/";
 
       if (dispatchEvent) {
         window.dispatchEvent(
-          new CustomEvent("on-hs-appearance-change", { detail: theme })
+          new CustomEvent("on-hs-appearance-change", { detail: theme }),
         );
       }
     },
@@ -168,10 +168,10 @@ const homeUrl = "/";
 
   window.addEventListener("load", () => {
     const $clickableThemes = document.querySelectorAll(
-      "[data-hs-theme-click-value]"
+      "[data-hs-theme-click-value]",
     );
     const $switchableThemes = document.querySelectorAll(
-      "[data-hs-theme-switch]"
+      "[data-hs-theme-switch]",
     );
 
     $clickableThemes.forEach(($item) => {
@@ -179,8 +179,8 @@ const homeUrl = "/";
         HSThemeAppearance.setAppearance(
           $item.getAttribute("data-hs-theme-click-value"),
           true,
-          $item
-        )
+          $item,
+        ),
       );
     });
 

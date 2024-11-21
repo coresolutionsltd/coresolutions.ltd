@@ -11,7 +11,8 @@ import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
 import Icon from "@components/ui/icons/Icon.astro";
 
 const title: string = "Contact us";
-const subTitle: string = "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution for you.";
+const subTitle: string =
+  "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution for you.";
 const formTitle: string = "Fill in the form below";
 const formSubTitle: string = "We'll get back to you in 1-2 business days.";
 const formspreeEndpoint = "https://formspree.io/f/xvgopyyk";
@@ -24,24 +25,26 @@ const pageTitle: string = `Contact | ${SITE.title}`;
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": "https://coresolutions.ltd/contact",
-    "url": "https://coresolutions.ltd/contact",
-    "name": "Contact Us | CoreSolutions",
-    "description":
+    url: "https://coresolutions.ltd/contact",
+    name: "Contact Us | CoreSolutions",
+    description:
       "Have questions or want to discuss a project? Reach out, and let's craft the perfect solution with our tools and services.",
-    "isPartOf": {
+    isPartOf: {
       "@type": "WebSite",
-      "url": "https://coresolutions.ltd",
-      "name": "CoreSolutions",
-      "description":
+      url: "https://coresolutions.ltd",
+      name: "CoreSolutions",
+      description:
         "CoreSolutions offers top-tier hardware tools and expert construction services to meet all your project needs.",
     },
-    "inLanguage": "en-US"
+    inLanguage: "en-US",
   }}
 >
   <section class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
     <div class="mx-auto max-w-2xl lg:max-w-5xl">
       <div class="text-center">
-        <h1 class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight">
+        <h1
+          class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+        >
           {title}
         </h1>
         <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
@@ -51,52 +54,64 @@ const pageTitle: string = `Contact | ${SITE.title}`;
 
       <div class="mt-12 grid items-center gap-6 lg:grid-cols-2 lg:gap-16">
         <div class="flex flex-col rounded-xl p-4 sm:p-6 lg:p-8">
-          <h2 class="mb-8 text-xl font-bold text-neutral-700 dark:text-neutral-300">
+          <h2
+            class="mb-8 text-xl font-bold text-neutral-700 dark:text-neutral-300"
+          >
             {formTitle}
           </h2>
 
           <!-- Define a hidden iframe for form submission -->
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+          <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+          ></iframe>
 
-  <form action={formspreeEndpoint} method="POST" target="hidden_iframe" id="contactForm" onsubmit="this.submit(); this.reset(); formSubmissionSuccess(); return false;">
-    <div class="grid gap-4">
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <TextInput
-          id="hs-firstname-contacts"
-          label="First Name"
-          name="firstname"
-          required={true}
-        />
-        <TextInput
-          id="hs-lastname-contacts"
-          label="Last Name"
-          name="lastname"
-          required={true}
-        />
-      </div>
-      <EmailContactInput id="hs-email-contacts" required={true} />
-      <PhoneInput id="hs-phone-number" />
-      <TextAreaInput
-        id="hs-about-contacts"
-        label="Details"
-        name="message"
-        required={true}
-      />
-    </div>
+          <form
+            action={formspreeEndpoint}
+            method="POST"
+            target="hidden_iframe"
+            id="contactForm"
+            onsubmit="this.submit(); this.reset(); formSubmissionSuccess(); return false;"
+          >
+            <div class="grid gap-4">
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <TextInput
+                  id="hs-firstname-contacts"
+                  label="First Name"
+                  name="firstname"
+                  required={true}
+                />
+                <TextInput
+                  id="hs-lastname-contacts"
+                  label="Last Name"
+                  name="lastname"
+                  required={true}
+                />
+              </div>
+              <EmailContactInput id="hs-email-contacts" required={true} />
+              <PhoneInput id="hs-phone-number" />
+              <TextAreaInput
+                id="hs-about-contacts"
+                label="Details"
+                name="message"
+                required={true}
+              />
+            </div>
 
-    <div class="mt-4 grid">
-      <AuthBtn title="Send Message" />
-    </div>
+            <div class="mt-4 grid">
+              <AuthBtn title="Send Message" />
+            </div>
 
-    <div class="mt-3 text-center">
-      <p class="text-sm text-neutral-600 dark:text-neutral-300 mb-3 mt-4 hidden" id="successMessage" >
-        Thank you! Your message has been sent successfully.
-      </p>
-      <p class="text-sm text-neutral-600 dark:text-neutral-400">
-        {formSubTitle}
-      </p>
-    </div>
-  </form>
+            <div class="mt-3 text-center">
+              <p
+                class="text-sm text-neutral-600 dark:text-neutral-300 mb-3 mt-4 hidden"
+                id="successMessage"
+              >
+                Thank you! Your message has been sent successfully.
+              </p>
+              <p class="text-sm text-neutral-600 dark:text-neutral-400">
+                {formSubTitle}
+              </p>
+            </div>
+          </form>
         </div>
 
         <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
@@ -128,9 +143,7 @@ const pageTitle: string = `Contact | ${SITE.title}`;
 <script is:inline>
   function formSubmissionSuccess() {
     // Show the success message
-    const successMessage = document.getElementById('successMessage');
-    successMessage.classList.remove('hidden'); // Remove the 'hidden' class
+    const successMessage = document.getElementById("successMessage");
+    successMessage.classList.remove("hidden"); // Remove the 'hidden' class
   }
 </script>
-
-
