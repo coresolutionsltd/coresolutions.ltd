@@ -27,6 +27,11 @@ repos:
     hooks:
       - id: prettier-check
         name: Run Prettier Check
-        entry: ./scripts/precommit-prettier.sh
+        entry: npx prettier . --check
         language: system
-        files: \.(js|jsx|ts|tsx|astro|css|scss|html|json|yaml|md)$
+        files: \.(js|jsx|ts|tsx|md|mdx|astro)$
+      - id: eslint
+        name: Lint JavaScript/TypeScript files
+        entry: npx eslint .
+        language: system
+        files: \.(js|jsx|ts|tsx|astro)$
