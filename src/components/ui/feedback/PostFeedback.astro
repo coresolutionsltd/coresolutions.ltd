@@ -1,11 +1,10 @@
 ---
-const { title, firstChoice, secondChoice, page } = Astro.props;
+const { title, firstChoice, secondChoice } = Astro.props;
 
 interface Props {
   title: string;
   firstChoice: string;
   secondChoice: string;
-  page: string;
 }
 ---
 
@@ -59,6 +58,7 @@ interface Props {
 <script is:inline>
   const positiveButton = document.getElementById("positive-feedback");
   const negativeButton = document.getElementById("negative-feedback");
+  const blogTitle = document.getElementById("blog-post-title");
 
   positiveButton.addEventListener("click", function () {
     // Disable both buttons
@@ -88,7 +88,7 @@ interface Props {
 
     // Trigger Google Analytics event
     gtag("event", "positive_feedback_submission", {
-      page: { page },
+      page: blogTitle.textContent,
     });
   });
 
@@ -111,7 +111,7 @@ interface Props {
 
     // Trigger Google Analytics event
     gtag("event", "negative_feedback_submission", {
-      page: { page },
+      page: blogTitle.textContent,
     });
   });
 </script>
