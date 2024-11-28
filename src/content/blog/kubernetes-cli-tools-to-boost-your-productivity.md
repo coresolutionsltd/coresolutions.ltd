@@ -50,7 +50,7 @@ With K9s, you can:
 
 K9s enhances your productivity by providing quick access to cluster information and actions with minimal keystrokes.
 
-You can download K9s from its [GitHub repository](https://github.com/derailed/k9s) and find the full list of commands and features.
+You can find the full list of commands and features install instructions on the [k9s](https://github.com/derailed/k9s) repo.
 
 ## Stern
 
@@ -65,13 +65,13 @@ With Stern, you can:
 
 Stern is especially useful when working with microservices or deployments with multiple replicas.
 
-You can install Stern by following the instructions on its [GitHub repository](https://github.com/wercker/stern).
+Onstall instructions can be found on the [stern](https://github.com/wercker/stern) repo.
 
 ## krew
 
 **krew** is the package manager for `kubectl` plugins. It allows you to discover and install plugins to extend and enhance `kubectl`'s functionality. With krew, you can easily find and use plugins developed by the Kubernetes community.
 
-To install krew and manage plugins, you can follow the instructions on the [krew GitHub repository](https://github.com/kubernetes-sigs/krew). Once installed, you can search for plugins using `kubectl krew search` and install them with:
+To install krew and manage plugins, you can follow the instructions on the [krew](https://github.com/kubernetes-sigs/krew) repo. Once installed, you can search for plugins using `kubectl krew search` and install them with:
 
 ```bash
 kubectl krew install <plugin-name>
