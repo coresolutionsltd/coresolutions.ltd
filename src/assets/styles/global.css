@@ -19,7 +19,7 @@ ol {
 }
 
 article a {
-  @apply text-teal-300 hover:text-teal-500
+  @apply text-teal-300 hover:text-teal-500;
 }
 
 .astro-code {
