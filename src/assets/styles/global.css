@@ -18,8 +18,12 @@ ol {
   @apply mt-5 list-decimal pl-5;
 }
 
+article a {
+  @apply text-teal-300 hover:text-teal-500
+}
+
 .astro-code {
-  @apply mt-5 rounded-lg p-4 pl-4;
+  @apply mt-5 rounded-lg p-4 pl-4 text-xs sm:text-sm;
   white-space: pre-wrap;
   word-break: break-word;
 }
