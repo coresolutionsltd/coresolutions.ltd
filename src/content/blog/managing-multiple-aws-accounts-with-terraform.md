@@ -1,6 +1,6 @@
 ---
 title: "Managing Multiple AWS Accounts with Terraform"
-description: "Manage multiple AWS accounts with Terraform—best practices, strategies, and leveraging AWS Control Tower AFT.."
+description: "Manage multiple AWS accounts with Terraform, from super simple to leveraging AWS Control Tower AFT."
 pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/multiple-aws-accounts.jpg"
@@ -8,8 +8,6 @@ cardImageAlt: "Managing Multiple AWS Accounts with Terraform"
 readTime: 2
 tags: ["terraform", "aws"]
 ---
-
-# Managing Multiple AWS Accounts with Terraform
 
 When working with multiple AWS accounts, it's crucial to decide how you'll manage your Terraform state files. This choice influences the approach you take for deploying and managing resources across these accounts. In this post, we'll explore best practices for managing multiple AWS accounts with Terraform, including leveraging AWS Organisations and AWS Control Tower Account Factory for Terraform (AFT) for streamlined account vending.
 
