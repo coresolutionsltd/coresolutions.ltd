@@ -12,7 +12,7 @@ export async function getStaticPaths() {
   // Extract unique tags from all blog posts
   const allTags = new Set(blogPosts.flatMap((post) => post.data.tags || []));
 
-  const postsPerPage = 3; // Set how many posts per page
+  const postsPerPage = 13; // Set how many posts per page
   const paths = [];
 
   // Create paths for each tag, including pagination
