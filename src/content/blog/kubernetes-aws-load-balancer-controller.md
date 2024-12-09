@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/aws-load-balancer-controller.jpg"
 cardImageAlt: "Kubernetes AWS Load Balancer Controller"
-readTime: 4
+readTime: 2
 tags: ["kubernetes", "aws", "ingress-controller"]
 ---
 

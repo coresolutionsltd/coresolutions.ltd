@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/grafana.jpg"
 cardImageAlt: "Illustration of monitoring Kubernetes with Grafana"
-readTime: 4
+readTime: 3
 tags: ["kubernetes", "grafana", "observability"]
 ---
 

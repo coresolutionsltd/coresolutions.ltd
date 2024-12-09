@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/eks-iam.jpg"
 cardImageAlt: "Illustration of IAM roles on AWS EKS"
-readTime: 4
+readTime: 2
 tags: ["kubernetes", "eks", "aws", "iam"]
 ---
 

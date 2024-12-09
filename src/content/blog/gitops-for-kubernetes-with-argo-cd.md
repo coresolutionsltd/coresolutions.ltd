@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/argo-gitops.jpg"
 cardImageAlt: "ArgoCD managing Kubernetes workloads"
-readTime: 4
+readTime: 2
 tags: ["kubernetes", "argocd", "gitops"]
 ---
 

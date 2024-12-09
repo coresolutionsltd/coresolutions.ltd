@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/kubernetes-scaling.jpg"
 cardImageAlt: "Kubernetes scaling best practices"
-readTime: 4
+readTime: 3
 tags: ["kubernetes"]
 ---
 

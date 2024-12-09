@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/terraform-blue-green.jpg"
 cardImageAlt: "Illustration of blue green deployments"
-readTime: 4
+readTime: 3
 tags: ["terraform", "ansible", "ec2"]
 ---
 

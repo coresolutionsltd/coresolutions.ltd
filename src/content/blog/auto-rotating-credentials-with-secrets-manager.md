@@ -5,7 +5,7 @@ pubDate: 2020-01-01
 author: "Billy"
 cardImage: "@/images/blog/rotate-secrets.jpg"
 cardImageAlt: "Illustration of rotating secrets on aws"
-readTime: 4
+readTime: 2
 tags: ["secrets-manager", "aws"]
 ---
 
