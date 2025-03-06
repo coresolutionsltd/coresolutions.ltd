@@ -1,4 +1,4 @@
-.PHONY: lint pretty dev
+.PHONY: all
 
 # Lint using ESLint
 lint:
@@ -11,3 +11,6 @@ pretty:
 # Run Astro in Dev mode
 dev:
 	npm run dev
+
+upgrade:
+	npx @astrojs/upgrade
