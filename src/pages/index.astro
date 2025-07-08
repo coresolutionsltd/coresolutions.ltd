@@ -3,8 +3,14 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection.astro";
 import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import AnnouncementBanner from "@components/ui/banners/AnnouncementBanner.astro";
-import heroImage from "@images/hero.png";
+import features from "@data/features.json";
+import cloudImage from "@images/cloud.jpg";
+import platformMainImage from "@images/platformMain.jpg";
+import platformImage from "@images/platform.jpg";
+import kubernetesImage from "@images/kubernetes.jpg";
 
 const displayAnnouncementBanner = true;
 ---
@@ -23,14 +29,53 @@ const displayAnnouncementBanner = true;
   <HeroSection
     title=`Strengthen your business with <span
         class="text-teal-500 dark:text-teal-400">Core Solutions</span>`
-    subTitle="We're a cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions."
-    src={heroImage}
+    subTitle="Cloud infrastructure, expertly engineered."
+    src={platformMainImage}
     alt="Core Solutions"
+  />
+
+  <FeaturesGeneral
+    title="Cloud Engineering That Actually Works"
+    subTitle="We transform complex cloud challenges into elegant, scalable solutions. From AWS architecture to Kubernetes orchestration, we deliver platforms and expertise that keeps you moving forward."
+    alt="Core Solutions"
+    features={features}
+  />
+
+  <FeaturesNavs
+    title=`Our Expertise in <span class="text-blue-300 dark:text-blue-200">Cloud & DevOps</span>`
+    tabs={[
+      {
+        heading: "Cloud Infrastructure",
+        content:
+          "We specialise in architecting, building, and optimising cloud platforms to guarantee scalability, flexibility, and performance in dynamic cloud environments.",
+        svg: "cloud",
+        src: cloudImage,
+        alt: "Cloud computing and DevOps illustration",
+        first: true,
+      },
+      {
+        heading: "Platform Engineering",
+        content:
+          "Empower your teams with self-service, reliability, and speed. We build platforms to allow develoeprs to be self-sufficient.",
+        svg: "rocket",
+        src: platformImage,
+        alt: "CI/CD pipeline workflow representation",
+        second: true,
+      },
+      {
+        heading: "Kubernetes",
+        content:
+          "Kubernetes doesn’t have to be complex, it should accelerate, not slow down engineering teams. We take on the complexity for you, so you can build, without getting bogged down.",
+        svg: "puzzle",
+        src: kubernetesImage,
+        alt: "Cloud security and compliance shield",
+      },
+    ]}
   />
 
   <HeroSectionAlt
     title="Let's Build Together"
-    subTitle="We love open source, let’s build, innovate, and create together."
+    subTitle="We love open source, let’s build something special, together."
     url="https://github.com/coresolutionsltd"
   />
 </MainLayout>

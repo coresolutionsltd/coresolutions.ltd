@@ -13,12 +13,13 @@ interface Feature {
 interface Props {
   title?: string;
   subTitle?: string;
+  content?: string;
   features?: Feature[];
   src?: any;
   alt?: string;
 }
 // Define props from Astro
-const { title, subTitle, src, alt, features } = Astro.props;
+const { title, subTitle, content, src, alt, features } = Astro.props;
 ---
 
 <section
@@ -55,6 +56,14 @@ const { title, subTitle, src, alt, features } = Astro.props;
         subTitle && (
           <p class="mt-2 text-pretty text-neutral-600 dark:text-neutral-400 md:mt-4">
             {subTitle}
+          </p>
+        )
+      }
+      <!-- Rendering content -->
+      {
+        content && (
+          <p class="mt-2 text-pretty text-neutral-600 dark:text-neutral-400 md:mt-4">
+            {content}
           </p>
         )
       }

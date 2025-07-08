@@ -15,7 +15,11 @@ const formspreeEndpoint = "https://formspree.io/f/xldeeojg";
     <div class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
       <div class="col-span-full lg:col-span-1">
         <a href="/"
-          ><img class="h-auto w-32" src={iconImage.src} alt="Icon" />
+          ><img
+            class="h-auto w-32 h-14 hover:opacity-85 dark:invert dark:brightness-0 hover:dark:brightness-200 hover:dark:grayscale hover:brightness-60"
+            src={iconImage.src}
+            alt="Icon"
+          />
         </a>
       </div>
       <!-- An array of links for Product and Company sections -->
@@ -63,7 +67,6 @@ const formspreeEndpoint = "https://formspree.io/f/xldeeojg";
           id="contactForm"
           onsubmit="this.submit(); this.reset(); newsletterSubmissionSuccess(); return false;"
         >
-          <EmailFooterInput />
           <p
             class="mt-3 text-sm text-neutral-600 dark:text-neutral-400"
             id="newsletterMessage"
@@ -76,6 +79,7 @@ const formspreeEndpoint = "https://formspree.io/f/xldeeojg";
           >
             Successfully subscribed 🎉
           </p>
+          <EmailFooterInput />
         </form>
       </div>
     </div>

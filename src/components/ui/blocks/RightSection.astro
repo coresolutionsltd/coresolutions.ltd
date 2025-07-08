@@ -6,6 +6,7 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 const {
   title,
   subTitle,
+  content,
   btnExists,
   btnTitle,
   btnURL,
@@ -19,6 +20,7 @@ const {
 interface Props {
   title: string;
   subTitle: string;
+  content?: string;
   btnExists?: boolean;
   btnTitle?: string;
   btnURL?: string;
@@ -47,6 +49,13 @@ interface Props {
     >
       {subTitle}
     </p>
+    {
+      content && (
+        <p class="mb-4 max-w-prose text-pretty font-light text-neutral-600 dark:text-neutral-400 sm:text-lg">
+          {content}
+        </p>
+      )
+    }
     <!-- Conditional rendering of the Primary Call-To-Action button if 'btnExists' is true -->
     {btnExists ? <PrimaryCTA title={btnTitle} url={btnURL} /> : null}
   </div>

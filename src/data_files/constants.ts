@@ -1,12 +1,11 @@
-import ogImageSrc from "@images/social.png";
+import ogImageSrc from "@images/social.jpg";
 
 export const SITE = {
   title: "Core Solutions",
   tagline: "Cloud & DevOps Specialists",
-  description:
-    "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
+  description: "Cloud infrastructure, expertly engineered.",
   description_short:
-    "Cloud consultancy dedicated to innovation and collaboration.",
+    "Cloud infrastructure, expertly engineered, designed for agility, built for reliability.",
   url: "https://coresolutions.ltd",
 };
 
@@ -43,6 +42,6 @@ export const OG = {
   url: SITE.url,
   title: `${SITE.title} - Cloud & DevOps Services`,
   description:
-    "Cloud consultancy dedicated to innovation and collaboration. We build secure, scalable solutions.",
+    "Cloud infrastructure, expertly engineered, designed for agility, built for reliability.",
   image: ogImageSrc,
 };
