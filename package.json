@@ -15,7 +15,7 @@
     "@preline/accordion": "^3.1.0",
     "@preline/collapse": "^2.5.0",
     "@preline/dropdown": "^2.4.1",
-    "@preline/overlay": "^2.5.0",
+    "@preline/overlay": "^3.0.0",
     "@preline/tabs": "^2.5.2",
     "@vercel/nft": "^0.29.2",
     "astro": "^5.11.0",
