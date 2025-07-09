@@ -12,7 +12,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.4.1",
     "@astrojs/tailwind": "^6.0.2",
-    "@preline/accordion": "^2.5.2",
+    "@preline/accordion": "^3.1.0",
     "@preline/collapse": "^2.5.0",
     "@preline/dropdown": "^2.4.1",
     "@preline/overlay": "^2.5.0",
