@@ -488,7 +488,8 @@ export const Icons = {
         d: "M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z",
       },
     ],
-    class: "mt-1 size-5 flex-shrink-0 text-blue-500 dark:text-blue-100",
+    class:
+      "mt-1 size-5 flex-shrink-0 text-gray-950 dark:text-gray-200 hs-tab-active:text-blue-500 dark:hs-tab-active:text-blue-400 hs-tab-active:fill-blue-300 dark:hs-tab-active:fill-blue-200 md:h-7 md:w-7",
     viewBox: "0 0 24 24",
     fill: "none",
     strokeWidth: "1.5",
@@ -502,7 +503,8 @@ export const Icons = {
         d: "M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z",
       },
     ],
-    class: "mt-1 size-5 flex-shrink-0 text-blue-500 dark:text-blue-100",
+    class:
+      "mt-1 size-5 flex-shrink-0 text-gray-950 dark:text-gray-200 hs-tab-active:text-blue-500 dark:hs-tab-active:text-blue-400 hs-tab-active:fill-blue-300 dark:hs-tab-active:fill-blue-200 md:h-7 md:w-7",
     viewBox: "0 0 24 24",
     fill: "none",
     strokeWidth: "1.5",
@@ -544,7 +546,7 @@ export const Icons = {
         d: "M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z",
       },
     ],
-    class: "mt-1 size-5 flex-shrink-0 text-blue-500 dark:text-blue-100",
+    class: "mt-1 size-5 flex-shrink-0",
     viewBox: "0 0 24 24",
     fill: "none",
     strokeWidth: "1.5",
@@ -558,7 +560,8 @@ export const Icons = {
         d: "M6 17.5c-1.657 0-3-1.343-3-3a3.5 3.5 0 0 1 3.742-3.495A5 5 0 0 1 11 8a4.5 4.5 0 0 1 8.348 2.158A3.75 3.75 0 0 1 20 17.5H6Z",
       },
     ],
-    class: "mt-1 size-5 flex-shrink-0 text-blue-500 dark:text-blue-100",
+    class:
+      "mt-1 size-5 flex-shrink-0 text-gray-950 dark:text-gray-200 hs-tab-active:text-blue-500 dark:hs-tab-active:text-blue-400 hs-tab-active:fill-blue-300 dark:hs-tab-active:fill-blue-200 md:h-7 md:w-7",
     viewBox: "0 0 24 24",
     fill: "none",
     strokeWidth: "1.5",

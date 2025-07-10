@@ -206,17 +206,14 @@ The Lambda function will dynamically update your security groups based on these 
 To verify that your setup is working as expected:
 
 1. **Access Your Application via CloudFront**
-
    - Navigate to your CloudFront distribution URL or domain name.
    - Ensure that you can access your application without any issues.
 
 2. **Attempt Direct Access to the ALB**
-
    - Try accessing your ALB directly via its DNS name or IP address.
    - You should receive an error or be blocked, indicating that direct access is denied.
 
 3. **Check WAF Logs**
-
    - Review AWS WAF logs in Amazon CloudWatch to confirm that requests without the correct origin token are being blocked.
    - Ensure that legitimate traffic through CloudFront is allowed.
 

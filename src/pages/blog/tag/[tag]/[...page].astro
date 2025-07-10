@@ -74,9 +74,11 @@ const pageTitle: string = `${capitalize(tag)} | ${SITE.title} | Blog`;
     <!-- Page header -->
     <div class="mx-auto max-w-3xl text-left sm:text-center">
       <h1
-        class="block text-balance text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-5xl lg:text-6xl"
+        class="block text-balance text-4xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-5xl"
       >
-        Posts tagged with: {tag}
+        Posts tagged with: <span class="text-blue-300 dark:text-blue-300"
+          >{tag}</span
+        >
       </h1>
     </div>
   </section>
