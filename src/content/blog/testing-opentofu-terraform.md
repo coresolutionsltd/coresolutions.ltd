@@ -18,12 +18,14 @@ The infrastructure testing landscape has matured significantly. Terraform 1.6 in
 ## Why Native Testing Matters
 
 Traditional testing approaches often required:
+
 - Learning additional programming languages (Go for Terratest, Python for other frameworks)
 - Complex setup and teardown procedures
 - External dependencies and toolchain management
 - Separate CI/CD pipeline considerations
 
 The native testing framework addresses these challenges by providing:
+
 - Tests written in the same HCL language you already know
 - Built-in state management and cleanup
 - Integrated plan and apply testing modes
@@ -38,7 +40,7 @@ Let's start with a practical example. Consider this simple infrastructure module
 variable "environment" {
   description = "The environment name"
   type        = string
-  
+
   validation {
     condition     = can(regex("^(dev|staging|prod)$", var.environment))
     error_message = "Environment must be dev, staging, or prod."
@@ -48,7 +50,7 @@ variable "environment" {
 variable "project_name" {
   description = "The project name"
   type        = string
-  
+
   validation {
     condition     = length(var.project_name) > 2 && length(var.project_name) < 20
     error_message = "Project name must be between 3 and 19 characters."
@@ -88,7 +90,7 @@ variables {
 
 run "valid_bucket_naming" {
   command = plan
-  
+
   assert {
     condition     = aws_s3_bucket.main.bucket == "myapp-dev-data"
     error_message = "Bucket name should follow pattern: project-environment-data"
@@ -97,12 +99,12 @@ run "valid_bucket_naming" {
 
 run "versioning_disabled_for_dev" {
   command = plan
-  
+
   variables {
     environment = "dev"
     project_name = "testproject"
   }
-  
+
   assert {
     condition     = aws_s3_bucket_versioning.main.versioning_configuration[0].status == "Suspended"
     error_message = "Versioning should be disabled for dev environment"
@@ -111,12 +113,12 @@ run "versioning_disabled_for_dev" {
 
 run "versioning_enabled_for_prod" {
   command = plan
-  
+
   variables {
     environment = "prod"
     project_name = "testproject"
   }
-  
+
   assert {
     condition     = aws_s3_bucket_versioning.main.versioning_configuration[0].status == "Enabled"
     error_message = "Versioning should be enabled for prod environment"
@@ -132,12 +134,12 @@ One of the most powerful aspects of the native testing framework is the ability 
 # tests/validation.tftest.hcl
 run "invalid_environment_fails" {
   command = plan
-  
+
   variables {
     environment  = "invalid"
     project_name = "myapp"
   }
-  
+
   expect_failures = [
     var.environment,
   ]
@@ -145,12 +147,12 @@ run "invalid_environment_fails" {
 
 run "project_name_too_short_fails" {
   command = plan
-  
+
   variables {
     environment  = "dev"
     project_name = "xy"
   }
-  
+
   expect_failures = [
     var.project_name,
   ]
@@ -158,12 +160,12 @@ run "project_name_too_short_fails" {
 
 run "project_name_too_long_fails" {
   command = plan
-  
+
   variables {
-    environment  = "dev" 
+    environment  = "dev"
     project_name = "this-name-is-way-too-long-for-our-validation"
   }
-  
+
   expect_failures = [
     var.project_name,
   ]
@@ -185,17 +187,17 @@ run "integration_test_with_mocks" {
   providers = {
     aws = aws.mock
   }
-  
+
   variables {
     environment  = "prod"
     project_name = "integration-test"
   }
-  
+
   assert {
     condition     = aws_s3_bucket.main.bucket == "integration-test-prod-data"
     error_message = "Bucket naming integration failed"
   }
-  
+
   assert {
     condition     = output.versioning_enabled == true
     error_message = "Prod environment should have versioning enabled"
@@ -212,12 +214,12 @@ run "test_with_overrides" {
       }]
     }
   }
-  
+
   variables {
     environment  = "dev"
     project_name = "override-test"
   }
-  
+
   assert {
     condition     = output.versioning_enabled == true
     error_message = "Override should force versioning to be enabled"
@@ -239,7 +241,7 @@ variable "bucket_name" {
 # Load the main module being tested
 module "main" {
   source = "../../"
-  
+
   environment  = var.environment
   project_name = var.project_name
 }
@@ -273,12 +275,12 @@ run "bucket_actually_exists" {
   module {
     source = "./test-helpers/http-check"
   }
-  
+
   assert {
     condition     = output.bucket_exists == true
     error_message = "Bucket should exist after creation"
   }
-  
+
   assert {
     condition     = output.main_outputs.bucket_name == "existence-test-dev-data"
     error_message = "Helper module should pass through correct bucket name"
@@ -289,12 +291,13 @@ run "bucket_actually_exists" {
 ## Testing Strategies: Unit vs Integration
 
 ### Unit Testing (Plan Mode)
+
 Use `command = plan` for fast feedback on configuration logic:
 
 ```hcl
 run "unit_test_bucket_config" {
   command = plan
-  
+
   # Fast execution, no real resources created
   assert {
     condition = aws_s3_bucket.main.bucket != ""
@@ -304,6 +307,7 @@ run "unit_test_bucket_config" {
 ```
 
 ### Integration Testing (Apply Mode)
+
 Use the default `command = apply` for end-to-end validation:
 
 ```hcl
@@ -313,7 +317,7 @@ run "integration_test_full_stack" {
     environment = "dev"
     project_name = "integration"
   }
-  
+
   assert {
     condition = aws_s3_bucket.main.id != ""
     error_message = "Bucket should be successfully created"
@@ -326,16 +330,18 @@ run "integration_test_full_stack" {
 Both OpenTofu and Terraform support the same testing syntax, but there are subtle differences to be aware of:
 
 ### File Extensions
+
 - **Terraform**: Uses `.tftest.hcl` and `.tftest.json`
 - **OpenTofu**: Supports both `.tftest.hcl`/`.tftest.json` AND `.tofutest.hcl`/`.tofutest.json`
 - **Best Practice**: Stick with `.tftest.hcl` for maximum compatibility
 
 ### Running Tests
+
 ```bash
 # Terraform
 terraform test
 
-# OpenTofu  
+# OpenTofu
 tofu test
 
 # Both support the same options
@@ -348,6 +354,7 @@ tofu test -filter=specific_test.tftest.hcl
 ### Directory Structure Options
 
 **Option 1: Co-located Tests**
+
 ```
 .
 ├── main.tf
@@ -359,6 +366,7 @@ tofu test -filter=specific_test.tftest.hcl
 ```
 
 **Option 2: Separate Tests Directory**
+
 ```
 .
 ├── main.tf
@@ -375,6 +383,7 @@ tofu test -filter=specific_test.tftest.hcl
 ### Test Naming Conventions
 
 Use descriptive names that indicate the test purpose:
+
 - `validation_*.tftest.hcl` - Tests for input validation
 - `unit_*.tftest.hcl` - Fast unit tests using plan mode
 - `integration_*.tftest.hcl` - Full integration tests
@@ -383,24 +392,28 @@ Use descriptive names that indicate the test purpose:
 ## Best Practices and Recommendations
 
 ### 1. Layer Your Testing Strategy
+
 - **Validation Tests**: Test input validation and constraints
 - **Unit Tests**: Test configuration logic using plan mode
 - **Integration Tests**: Test real resource creation selectively
 - **Smoke Tests**: Quick health checks for critical functionality
 
 ### 2. Use Mocks Strategically
+
 Don't mock everything - use mocks for:
+
 - Expensive resources (large compute instances)
 - Resources with external dependencies
 - Third-party services that don't need actual validation
 
 ### 3. Test Both Success and Failure Paths
+
 ```hcl
 run "valid_input_succeeds" {
   variables {
     environment = "prod"
   }
-  
+
   assert {
     condition = aws_s3_bucket.main.id != ""
     error_message = "Valid input should create bucket"
@@ -411,12 +424,13 @@ run "invalid_input_fails" {
   variables {
     environment = "invalid"
   }
-  
+
   expect_failures = [var.environment]
 }
 ```
 
 ### 4. Keep Tests Independent
+
 Each `run` block should be independent and not rely on state from other tests:
 
 ```hcl
@@ -432,13 +446,14 @@ run "test_dev_environment" {
 run "test_prod_environment" {
   variables {
     environment = "prod"
-    project_name = "test-prod"  
+    project_name = "test-prod"
   }
   # ... assertions
 }
 ```
 
 ### 5. Use Descriptive Error Messages
+
 ```hcl
 assert {
   condition = length(aws_s3_bucket.main.bucket) <= 63
@@ -451,9 +466,10 @@ assert {
 The native testing frameworks in both OpenTofu and Terraform represent a significant step forward in infrastructure testing maturity. By leveraging HCL for tests, teams can maintain consistency in their toolchain while achieving comprehensive test coverage.
 
 Key takeaways:
+
 - Use plan mode for fast unit tests, apply mode for integration tests
 - Leverage mocking and overrides for complex scenarios
-- Maintain cross-platform compatibility by using standard `.tftest.hcl` files  
+- Maintain cross-platform compatibility by using standard `.tftest.hcl` files
 - Structure tests logically and keep them independent
 - Integrate testing into your CI/CD pipeline from the start
 
@@ -463,4 +479,4 @@ As the infrastructure as code landscape continues to evolve, having a solid test
 
 ---
 
-*Ready to start testing your infrastructure? Begin with simple validation tests and gradually expand to more comprehensive integration scenarios. Your future self (and your team) will thank you for the investment in testing discipline.*
+_Ready to start testing your infrastructure? Begin with simple validation tests and gradually expand to more comprehensive integration scenarios. Your future self (and your team) will thank you for the investment in testing discipline._
