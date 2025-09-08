@@ -5,11 +5,9 @@ pubDate: 2025-09-08
 author: "Billy"
 cardImage: "@/images/blog/github-opentofu-oidc.jpg"
 cardImageAlt: "Illustration of a secure CI/CD pipeline"
-readTime: 2
+readTime: 4
 tags: ["github", "aws", "opentofu", "terraform"]
 ---
-
-# Deploy to AWS using GitHub Actions and OIDC: Secure CI/CD with OpenTofu / Terraform
 
 GitHub Actions make CI/CD simple and powerful, but securely accessing AWS resources from runners requires care. Traditionally, this meant storing long-lived AWS access keys as GitHub secrets, a practice with obvious security risks. With OpenID Connect (OIDC), we now have a modern, keyless authentication method between GitHub Actions and AWS.
 
