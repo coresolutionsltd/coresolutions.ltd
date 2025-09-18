@@ -75,7 +75,9 @@ ESO consists of several key components:
 
 ### Helm Installation
 
-Deploy External Secrets Operator using Helm for production environments:
+Deploy External Secrets Operator using Helm
+
+> For production environments, Helm values and configuration should be stored in version control and applied through your chosen GitOps or CI/CD workflow
 
 ```bash
 # Add the External Secrets Operator Helm repository
