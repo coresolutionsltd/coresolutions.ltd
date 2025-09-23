@@ -1,6 +1,6 @@
 ---
 title: "Zero-Trust Networking in Kubernetes with Istio Service Mesh"
-description: "Istio's zero-trust architecture, from implementation to comprehensive observability."
+description: "Zero trust architecture, from implementation to observability."
 pubDate: 2025-09-23
 author: "Billy"
 cardImage: "@/images/blog/istio-zero-trust.jpg"
