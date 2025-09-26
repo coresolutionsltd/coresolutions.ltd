@@ -13,11 +13,11 @@ When leveraging **Cloudflare** to protect your website from malicious actors, yo
 
 While you can manually add Cloudflare IPs during your infrastructure deployment, Cloudflare's IP list can change over time. Unless you're frequently updating your deployment, your Security Groups may become outdated, potentially blocking legitimate traffic.
 
-In this article, we'll explore how to automate the process of updating AWS Security Groups with the latest Cloudflare IP addresses using Terraform.
+In this article, we'll explore how to automate the process of updating AWS Security Groups with the latest Cloudflare IP addresses using OpenTofu/Terraform.
 
 ## Solution Overview
 
-We've created a Terraform module that deploys a Lambda function. This function runs periodically (by default, once a day) and updates Security Groups with the latest Cloudflare IP addresses. The Lambda function:
+We've created an OpenTofu/Terraform module that deploys a Lambda function. This function runs periodically (by default, once a day) and updates Security Groups with the latest Cloudflare IP addresses. The Lambda function:
 
 - Searches for Security Groups tagged with `CF-AutoUpdate = true`.
 - For each found Security Group, it looks for a `CF-Ports` tag containing a comma-separated list of ports.
@@ -26,9 +26,9 @@ We've created a Terraform module that deploys a Lambda function. This function r
 
 This approach allows each Security Group to independently control which ports are required and toggle the auto-update functionality on or off via tags.
 
-## Terraform Module Usage
+## OpenTofu/Terraform Module Usage
 
-You can use the following Terraform module to set up the Lambda function:
+You can use the following OpenTofu/Terraform module to set up the Lambda function:
 
 ```hcl
 module "cloudflare-sg-updater" {
@@ -36,7 +36,7 @@ module "cloudflare-sg-updater" {
 }
 ```
 
-This module handles the creation of the Lambda function, IAM roles, and CloudWatch Event Rule to trigger the function on a schedule. For more information, including configuration options and inputs, refer to the [Terraform Registry documentation](https://registry.terraform.io/modules/coresolutions-ltd/cloudflare-sg-updater/aws/latest).
+This module handles the creation of the Lambda function, IAM roles, and CloudWatch Event Rule to trigger the function on a schedule. For more information, including configuration options and inputs, refer to the [OpenTofu/Terraform Registry documentation](https://registry.terraform.io/modules/coresolutions-ltd/cloudflare-sg-updater/aws/latest).
 
 ## How the Lambda Function Works
 
@@ -135,4 +135,4 @@ This approach is flexible and scalable:
 - **Single Lambda Function**: A single Lambda function can update multiple Security Groups, simplifying management.
 - **Easy Toggle**: Enable or disable the auto-update functionality per Security Group by setting or removing the `CF-AutoUpdate` tag.
 
-Best of all, this entire process is seamlessly handled by a Terraform module, requiring only the addition of a few tags to your existing resources.
+Best of all, this entire process is seamlessly handled by an OpenTofu/Terraform module, requiring only the addition of a few tags to your existing resources.

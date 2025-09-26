@@ -19,7 +19,7 @@ AWS implemented native functionality to solve this problem through IRSA, which e
 
 IRSA relies on an OpenID Connect (OIDC) Identity Provider to allow EKS service accounts to assume IAM roles within your AWS account. EKS automatically generates an OIDC provider URL for your cluster; all you need to do is create the corresponding IAM Identity Provider.
 
-If you're using the AWS EKS Terraform module, this step is straightforward. You can enable IRSA by passing `enable_irsa = true` to the module:
+If you're using the AWS EKS OpenTofu/Terraform module, this step is straightforward. You can enable IRSA by passing `enable_irsa = true` to the module:
 
 ```hcl
 module "eks" {
@@ -32,7 +32,7 @@ That's it! Once this is done, pods running in your EKS cluster can assume IAM ro
 
 ## Creating IAM Roles for EKS
 
-To allow EKS pods to assume an IAM role, we need to add the OIDC Identity Provider as a trusted entity in the IAM role. One of the simplest ways to accomplish this is by using the `iam-assumable-role-with-oidc` Terraform module.
+To allow EKS pods to assume an IAM role, we need to add the OIDC Identity Provider as a trusted entity in the IAM role. One of the simplest ways to accomplish this is by using the `iam-assumable-role-with-oidc` OpenTofu/Terraform module.
 
 ```hcl
 module "assumable_role" {
@@ -62,7 +62,7 @@ With this annotation, any workload using the service account will have the permi
 
 ## Restricting Access to Specific Service Accounts
 
-By default, the above setup allows any service account in the cluster to assume the role. To restrict access to specific service accounts, you can modify the trust policy of the IAM role. If you're using the Terraform module, you can specify allowed service accounts via the `oidc_fully_qualified_subjects` list:
+By default, the above setup allows any service account in the cluster to assume the role. To restrict access to specific service accounts, you can modify the trust policy of the IAM role. If you're using the OpenTofu/Terraform module, you can specify allowed service accounts via the `oidc_fully_qualified_subjects` list:
 
 ```hcl
 module "assumable_role" {

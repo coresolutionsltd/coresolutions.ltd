@@ -6,7 +6,7 @@ author: "Billy"
 cardImage: "@/images/blog/alb-waf-cloudfront.jpg"
 cardImageAlt: "Protecting your ALB with WAF & Cloudfront"
 readTime: 3
-tags: ["terraform", "aws"]
+tags: ["opentofu", "terraform", "aws"]
 ---
 
 Protecting your Application Load Balancer (ALB) from unwanted traffic is essential for maintaining the security and performance of your applications. While third-party products like Cloudflare and Incapsula offer feature-rich solutions, you can also leverage native AWS services to achieve robust protection. In this post, we'll focus on using AWS's own Web Application Firewall (WAF) and CloudFront to secure your ALB. We'll explore techniques to lock down your load balancer so that it only accepts valid traffic originating from CloudFront.
@@ -131,7 +131,7 @@ To further secure your ALB, you should ensure that it only allows ingress traffi
 
 ### Allowing Traffic from CloudFront IP Ranges
 
-AWS publishes the IP ranges used by CloudFront, which can be retrieved and used in your security group rules. Here's how you can add the current list of CloudFront IP ranges to your security group using Terraform:
+AWS publishes the IP ranges used by CloudFront, which can be retrieved and used in your security group rules. Here's how you can add the current list of CloudFront IP ranges to your security group using OpenTofu/Terraform:
 
 ```
 data "aws_ip_ranges" "cloudfront" {
@@ -172,7 +172,7 @@ resource "aws_security_group" "alb_sg" {
 
 Since CloudFront IP ranges can change over time, it's important to keep your security groups up to date. AWS recommends creating a Lambda function that automatically updates your security groups when IP ranges change.
 
-You can use the following Terraform module to automate this process:
+You can use the following OpenTofu/Terraform module to automate this process:
 
 ```
 module "cloudfront_sg_updater" {

@@ -49,7 +49,7 @@ When you run `docker-compose up -d`, Jenkins will start with a persistent `jenki
 
 ## Extending Your Jenkins Image
 
-Sometimes you may need additional tools or binaries within your Jenkins environment. Perhaps you want to run Terraform or the AWS CLI as part of your pipeline steps. Rather than installing these tools manually each time, you can create a custom Docker image built on top of the official Jenkins Blue Ocean image.
+Sometimes you may need additional tools or binaries within your Jenkins environment. Perhaps you want to run OpenTofu/Terraform or the AWS CLI as part of your pipeline steps. Rather than installing these tools manually each time, you can create a custom Docker image built on top of the official Jenkins Blue Ocean image.
 
 For example:
 
@@ -68,7 +68,7 @@ RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linu
 USER jenkins
 ```
 
-This Dockerfile starts from `jenkinsci/blueocean` and adds the AWS CLI and Terraform 0.12.26. After building this image locally:
+This Dockerfile starts from `jenkinsci/blueocean` and adds the AWS CLI and OpenTofu/Terraform 0.12.26. After building this image locally:
 
 ```
 docker build -t jenkins .
@@ -84,4 +84,4 @@ You can update the `image` value in your `docker-compose.yml` to use your newly 
 
 ## Conclusion
 
-By using Docker to run Jenkins, you gain a flexible, isolated environment for experimenting with new CI/CD configurations. Leveraging Docker Compose with persistent volumes ensures data is retained across container restarts, making it ideal for more extensive testing scenarios. Customising your Docker image with additional tools like AWS CLI or Terraform provides a fully featured testbed, empowering you to iterate rapidly on your pipeline innovations without impacting your production Jenkins environment.
+By using Docker to run Jenkins, you gain a flexible, isolated environment for experimenting with new CI/CD configurations. Leveraging Docker Compose with persistent volumes ensures data is retained across container restarts, making it ideal for more extensive testing scenarios. Customising your Docker image with additional tools like AWS CLI or OpenTofu/Terraform provides a fully featured testbed, empowering you to iterate rapidly on your pipeline innovations without impacting your production Jenkins environment.

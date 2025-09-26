@@ -34,7 +34,7 @@ To achieve this, we'll leverage several AWS services:
 
 ## Setting Up AWS Secrets Manager
 
-First, we'll create a secret in AWS Secrets Manager to store our RDS credentials. If you're using the AWS Management Console, you can enable automatic rotation when creating the secret. This will automatically create a Lambda function with the appropriate IAM role to handle the rotation. If you're using Infrastructure as Code tooling like Terraform, you'll need to create the Lambda function and IAM role separately.
+First, we'll create a secret in AWS Secrets Manager to store our RDS credentials. If you're using the AWS Management Console, you can enable automatic rotation when creating the secret. This will automatically create a Lambda function with the appropriate IAM role to handle the rotation. If you're using Infrastructure as Code tooling like OpenTofu/Terraform, you'll need to create the Lambda function and IAM role separately.
 
 The secret will store the following information:
 
